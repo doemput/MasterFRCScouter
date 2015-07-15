@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.adithyasairam.android.masterfrcscouter" >
+
+    <uses-sdk
+        android:minSdkVersion="19"
+        android:targetSdkVersion="22" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="6666ffd2b9953056e50574163b6aa0161b5f43eb" />
+
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".BreakTimeActivity"
+            android:label="@string/title_activity_break_time" >
+        </activity>
+        <activity
+            android:name=".MatchScoutActivity"
+            android:label="@string/title_activity_match_scout" >
+        </activity>
+        <activity
+            android:name=".PitScoutActivity"
+            android:label="@string/title_activity_pit_scout" >
+        </activity>
+        <activity
+            android:name=".InfoActivity"
+            android:label="@string/title_activity_info" >
+        </activity>
+        <activity
+            android:name=".TheBlueAllianceActivity"
+            android:label="@string/title_activity_the_blue_alliance" >
+        </activity>
+        <activity
+            android:name=".ImportDataActivity"
+            android:label="@string/title_activity_import_data" >
+        </activity>
+        <activity
+            android:name=".ExportDataActivity"
+            android:label="@string/title_activity_export_data" >
+        </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings" >
+        </activity>
+        <activity
+            android:name=".TeleopMatchScoutActivity"
+            android:label="@string/title_activity_teleop_match_scout" >
+        </activity>
+        <activity
+            android:name=".AutonMatchScoutActivity"
+            android:label="@string/title_activity_auton_match_scout" >
+        </activity>
+    </application>
+
+</manifest>

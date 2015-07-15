@@ -1,0 +1,124 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.adithyasairam.android.masterfrcscouter.TeleopMatchScoutActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/submitBttn"
+        android:id="@+id/mainFrameLayout">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="143dp"
+            android:layout_gravity="left|top"
+            android:background="@drawable/layout_border"
+            android:id="@+id/mainTeleopFrame">
+
+            <EditText
+                android:layout_width="165dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/numHumanLitterThrownET"
+                android:layout_gravity="left|top"
+                android:hint="@string/numHumanLitterThrownText" />
+
+            <EditText
+                android:layout_width="165dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/numLitterPushedET"
+                android:layout_gravity="right|top"
+                android:hint="@string/numLitterPushedText" />
+
+            <EditText
+                android:layout_width="95dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/numTeleFoulsET"
+                android:layout_gravity="left|center_vertical"
+                android:hint="@string/numTeleFoulsText" />
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/coopStackText"
+                android:id="@+id/coopStackSwitch"
+                android:layout_gravity="center_horizontal|bottom" />
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/coopSetText"
+                android:id="@+id/coopSetSwitch"
+                android:layout_gravity="right|center_vertical" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="135dp"
+            android:layout_gravity="right|center_vertical"
+            android:id="@+id/stackSubmitFrame"
+            android:background="@drawable/layout_border">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/submitStackText"
+                android:id="@+id/submitStack"
+                android:layout_gravity="center_horizontal|bottom" />
+
+            <EditText
+                android:layout_width="145dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/stackHeightET"
+                android:layout_gravity="center_horizontal|top"
+                android:hint="@string/stackHeightText" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/canonTopWithLitterText"
+                android:id="@+id/canOnTopWithLitterCB"
+                android:layout_gravity="left|center_vertical" />
+
+            <CheckBox
+                android:layout_width="122dp"
+                android:layout_height="wrap_content"
+                android:text="@string/canOnTopText"
+                android:id="@+id/canOnTopCB"
+                android:layout_gravity="right|center_vertical" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="134dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/commentsTextArea"
+            android:layout_gravity="left|bottom"
+            android:hint="@string/commentsText"
+            android:focusableInTouchMode="true"
+            android:editable="true"
+            android:autoText="false"
+            android:background="@drawable/layout_border" />
+
+    </FrameLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/submitText"
+        android:id="@+id/submitBttn"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>
