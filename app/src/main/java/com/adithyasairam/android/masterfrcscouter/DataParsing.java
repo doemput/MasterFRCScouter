@@ -4,13 +4,12 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.cedarsoftware.util.io.JsonWriter;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.UUID;
 import java.util.List;
+
+import flexjson.JSONSerializer;
 
 /**
  * Created by Adi on 7/14/2015.
@@ -50,10 +49,8 @@ public class DataParsing {
 
     public static void setExtraInfo(String c) { comments = c; }
 
-    /**
-     * @return a JSON formatted String with all of this matches's scouting data.
-     */
-    public static String makeString() {
+    /* //Old way:
+        public static String makeString() {
         try {
             String nl = System.lineSeparator();
             String data = "";
@@ -99,9 +96,10 @@ public class DataParsing {
             e.printStackTrace();
         }
         return null;
-    }
+    } */
 
-    public static void writeDataAsJSON(String data) {
+    /* //Old way:
+        public static void writeDataAsJSON(String data) {
         String fileName = Constants.OfficialEventCode + "_" + "Match" + matchNumber + "_" + "Team" + teamNumber + ".json";
         try {
             File appDir = new File(Environment.getExternalStorageDirectory() + "/MasterFRCScouter");
@@ -139,7 +137,30 @@ public class DataParsing {
             Log.i(TAG, "Writing JSON data to a file did not complete sucessfully. :(");
             e.printStackTrace();
         }
+    } */
+
+    public static void writeDataAsJSON() {
+        String fileName = Constants.OfficialEventCode + "_" + "Match" + matchNumber + "_" + "Team" + teamNumber + ".json";
+        try {
+            File appDir = new File(Environment.getExternalStorageDirectory() + "/MasterFRCScouter");
+            appDir.mkdirs();
+            File dir = new File(appDir.getAbsolutePath() + "/" + Constants.OfficialEventCode);
+            dir.mkdirs();
+            File file = new File(dir.getAbsolutePath(), fileName);
+            JsonWriter jsonWriter = new JsonWriter(new FileOutputStream(file));
+            DataAssembly DAObject = new DataAssembly();
+            String JSONData = new JSONSerializer().include("rrStackList").exclude("*.class").prettyPrint(true).serialize(DAObject);
+            Log.d(TAG, "JSON Data: " + JSONData);
+            jsonWriter.write(JSONData);
+            jsonWriter.close();
+            Log.i(TAG, "Writing JSON data to a file completed sucessfully! :)");
+            Log.d(TAG, "JSON File saved to: " + file.getPath());
+        } catch (Exception e) {
+            Log.i(TAG, "Writing JSON data to a file did not complete sucessfully. :(");
+            e.printStackTrace();
+        }
     }
+
     public static int calculateThisRobotsAproxAutonScore() {
         int score = 0;
         if (roboSet) { score += 4; }
@@ -148,6 +169,7 @@ public class DataParsing {
         score -= autoFouls;
         return score;
     }
+
     public static int calculateThisRobotsAproxTeleopScore() {
         int score = 0;
         for (RRStack r: rrStackList) { score += r.calculateStackScore(); }
@@ -156,12 +178,14 @@ public class DataParsing {
         score -= numTeleFoulsPoints;
         return score;
     }
+
     public static int calculateThisRobotsAproxCoopScore() {
         int score = 0;
         if (coopSet) { score += 20; }
         if (coopStack) { score += 40; }
         return score;
     }
+
     public static int calculateThisRobotsAproxTotalScore() {
         return calculateThisRobotsAproxAutonScore() +
                 calculateThisRobotsAproxTeleopScore() +

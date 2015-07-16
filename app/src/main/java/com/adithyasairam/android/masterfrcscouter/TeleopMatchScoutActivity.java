@@ -1,8 +1,8 @@
 package com.adithyasairam.android.masterfrcscouter;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -65,7 +65,8 @@ public class TeleopMatchScoutActivity extends AppCompatActivity implements View.
             case R.id.submitBttn:
                 try {
                     parseData();
-                    DataParsing.writeDataAsJSON(DataParsing.makeString());
+                    //DataParsing.writeDataAsJSON(DataParsing.makeString()); //Old way
+                    DataParsing.writeDataAsJSON();
                     startActivity(new Intent(this, MatchScoutActivity.class));
                     finish();
                     break;
