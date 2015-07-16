@@ -4,6 +4,8 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.cedarsoftware.util.io.JsonWriter;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -87,8 +89,8 @@ public class DataParsing {
             data += "This Robot's Aprox CO-OP Score: " + calculateThisRobotsAproxCoopScore() + nl;
             data += "This Robot's Aprox Total Score: " + calculateThisRobotsAproxTotalScore() + nl;
             //Other:
-            if (comments != null || comments.length() > 0) { data += "Other Remarks: " + comments; }
-            else { data += "Other Remarks: None"; }
+            if (comments != null || comments.length() > 0) { data += "Comments: " + comments; }
+            else { data += "Comments: None"; }
             Log.i(TAG, "Writing all the data to a string completed sucessfully! :)");
             return data;
         }
@@ -104,11 +106,30 @@ public class DataParsing {
         try {
             File appDir = new File(Environment.getExternalStorageDirectory() + "/MasterFRCScouter");
             appDir.mkdirs();
-            File dir = new File(appDir.getAbsolutePath() + "/" + Constants.OfficialEventCode );
+            File dir = new File(appDir.getAbsolutePath() + "/" + Constants.OfficialEventCode);
             dir.mkdirs();
             File file = new File(dir.getAbsolutePath(), fileName);
             JsonWriter jsonWriter = new JsonWriter(new FileOutputStream(file));
-            String formatedJSONString = JsonWriter.formatJson(data);
+            String formatedJSONString;
+            Log.i(TAG, "Some bad code is about to happen!! Brace yourself!!!");
+            try {
+                formatedJSONString = JsonWriter.formatJson(data); //Null Pointer Exception?
+                Log.i(TAG, "Worked on try 1!!!");
+            } catch (Exception e) {
+                try {
+                    formatedJSONString = JsonWriter.formatJson(data);
+                    Log.i(TAG, "Worked on try 2!!");
+                } catch (Exception ex) {
+                    try {
+                        Log.i(TAG, "Worked on try 3!");
+                        formatedJSONString = data; //I'm out of options here!!!
+                    } catch (Exception exc) {
+                        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                        formatedJSONString = gson.toJson(data);
+                        Log.i(TAG, "Worked on try 4. :(");
+                    }
+                }
+            }
             jsonWriter.write(formatedJSONString);
             jsonWriter.close();
             Log.i(TAG, "Writing JSON data to a file completed sucessfully! :)");

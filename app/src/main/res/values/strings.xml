@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MasterFRCScouter</string>
+    <string name="app_name">Master FRC Scouter</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_login">Login</string>
     <string name="loginButton">Login</string>
@@ -26,10 +26,10 @@
     <string name="title_activity_export_data">Export Data</string>
     <string name="returnText">Return</string>
     <string name="exportDataText">Export Data</string>
-    <string name="teamNumberText">Team Num:</string>
-    <string name="matchNumberText">Match Num:</string>
+    <string name="teamNumberText">Team Num</string>
+    <string name="matchNumberText">Match Num</string>
     <string name="autonomous">Autonomous</string>
-    <string name="scoutingPositionText">Scouting Pos:</string>
+    <string name="scoutingPositionText">Scouting Pos</string>
     <string name="title_activity_teleop_match_scout">Teleoperated</string>
     <string name="title_activity_auton_match_scout">Autonomous</string>
     <string name="redAllianceText">Red Alliance</string>
@@ -53,6 +53,6 @@
     <string name="numLitterPushedText">Num Litter Pushed</string>
     <string name="numTeleFoulsText">Tele Fouls</string>
     <string name="coopSetText">CO-OP Set?</string>
-    <string name="coopStackText">CO-OP Stack</string>
-    <string name="commentsText">Comments:</string>
+    <string name="coopStackText">CO-OP Stack?</string>
+    <string name="commentsText">Comments: </string>
 </resources>
