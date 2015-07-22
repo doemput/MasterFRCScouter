@@ -40,15 +40,4 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="8"
-        android:id="@+id/idNum"
-        android:layout_marginTop="98dp"
-        android:hint="@string/idNumberText"
-        android:layout_below="@+id/scouterName"
-        android:layout_centerHorizontal="true" />
-
 </RelativeLayout>

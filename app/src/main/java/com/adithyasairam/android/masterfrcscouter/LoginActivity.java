@@ -1,22 +1,20 @@
 package com.adithyasairam.android.masterfrcscouter;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.util.Log;
 import android.widget.EditText;
-import android.widget.NumberPicker;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final String TAG = "LoginActivity";
     public static String scouterName;
-    public static int scouterIDNum;
-    EditText IDNum, Name;
+    EditText Name;
     Button bLogin;
 
     @Override
@@ -24,7 +22,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Name = (EditText)findViewById(R.id.scouterName);
-        IDNum = (EditText)findViewById(R.id.idNum);
         bLogin = (Button)(findViewById(R.id.bLogin));
         bLogin.setOnClickListener(this);
     }
@@ -57,7 +54,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.bLogin:
                 try {
                     scouterName = Name.getText().toString();
-                    scouterIDNum = Integer.parseInt(IDNum.getText().toString());
                     Log.i(TAG, "Login complete.");
                     Scouter.startSession();
                     Log.i(TAG, "Scouting session started at: " + Scouter.sessionStartTime + ".");

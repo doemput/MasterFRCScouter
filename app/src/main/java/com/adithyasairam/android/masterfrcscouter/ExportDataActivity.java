@@ -3,18 +3,19 @@ package com.adithyasairam.android.masterfrcscouter;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.util.Log;
 
 import java.io.File;
-import java.io.PrintWriter;
-import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class ExportDataActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -57,21 +58,25 @@ public class ExportDataActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-    public File[] getFilesToSend() {
-        File sdcard = Environment.getExternalStorageDirectory();
-        return sdcard.listFiles();
+    public ArrayList<File> getFilesToSend() {
+        File files = new File(Environment.getExternalStorageDirectory() + "/MasterFRCScouter" + "/MatchData");
+        return new ArrayList<File>(Arrays.asList(files.listFiles()));
     }
 
-    public boolean sendEmail(File[] filesToAttach) {
+    public boolean sendEmail(List<File> filesToAttach) {
         try {
             SharedPreferences prefs = getPreferences(0);
-            Intent email = new Intent(Intent.ACTION_SEND);
-            email.putExtra(Intent.EXTRA_EMAIL, new String[]{prefs.getString("email", Constants.DefaultEmail)});
-            email.putExtra(Intent.EXTRA_SUBJECT, Scouter.scouterName + "'s scouting data");
-            email.putExtra(Intent.EXTRA_TEXT, "From: " + prefs.getString("event_sel", "IRI2015"));
-            email.setType("text/plain");
-            for (File f : filesToAttach) { email.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(f)); }
-            startActivity(Intent.createChooser(email, "Choose an Email client: "));
+
+            Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+            intent.setType("text/plain");
+            ArrayList<Uri> arrayUri = new ArrayList<Uri>();
+            for (File f : filesToAttach) {
+                arrayUri.add(Uri.fromFile(f));
+            }
+            intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, arrayUri);
+            intent.putExtra(Intent.EXTRA_SUBJECT, Scouter.scouterName + "'s scouting data");
+            intent.putExtra(Intent.EXTRA_TEXT, "Data From: " + prefs.getString("event_sel", "IRI2015"));
+            startActivity(intent);
             return true;
         }
         catch (Exception e) {

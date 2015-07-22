@@ -8,7 +8,6 @@ import java.util.Calendar;
 
 public class Scouter {
     public static String scouterName = LoginActivity.scouterName;
-    public static int idNum = LoginActivity.scouterIDNum;
     public static long sessionStartTime;
     public long sessionEndTime;
     public long breakTimeStart;

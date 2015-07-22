@@ -3,13 +3,11 @@ package com.adithyasairam.android.masterfrcscouter;
 import android.os.Environment;
 import android.util.Log;
 
-import com.cedarsoftware.util.io.JsonWriter;
+import org.simpleframework.xml.Serializer;
+import org.simpleframework.xml.core.Persister;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.util.List;
-
-import flexjson.JSONSerializer;
 
 /**
  * Created by Adi on 7/14/2015.
@@ -49,14 +47,13 @@ public class DataParsing {
 
     public static void setExtraInfo(String c) { comments = c; }
 
-    /* //Old way:
+    /* //Old way # 1:
         public static String makeString() {
         try {
             String nl = System.lineSeparator();
             String data = "";
             //General Info:
             data += "Scouter Name: " + Scouter.scouterName + nl;
-            data += "Scouter ID: " + Scouter.idNum + nl;
             data += "Random ID: " + UUID.randomUUID().toString() + nl;
             data += "Team Number: " + teamNumber + nl;
             data += "Match Number: " + matchNumber + nl;
@@ -98,7 +95,7 @@ public class DataParsing {
         return null;
     } */
 
-    /* //Old way:
+    /* //Old way # 1:
         public static void writeDataAsJSON(String data) {
         String fileName = Constants.OfficialEventCode + "_" + "Match" + matchNumber + "_" + "Team" + teamNumber + ".json";
         try {
@@ -139,6 +136,7 @@ public class DataParsing {
         }
     } */
 
+    /* //Old way # 2:
     public static void writeDataAsJSON() {
         String fileName = Constants.OfficialEventCode + "_" + "Match" + matchNumber + "_" + "Team" + teamNumber + ".json";
         try {
@@ -148,7 +146,7 @@ public class DataParsing {
             dir.mkdirs();
             File file = new File(dir.getAbsolutePath(), fileName);
             JsonWriter jsonWriter = new JsonWriter(new FileOutputStream(file));
-            DataAssembly DAObject = new DataAssembly();
+            MatchData DAObject = new MatchData();
             String JSONData = new JSONSerializer().include("rrStackList").exclude("*.class").prettyPrint(true).serialize(DAObject);
             Log.d(TAG, "JSON Data: " + JSONData);
             jsonWriter.write(JSONData);
@@ -157,6 +155,28 @@ public class DataParsing {
             Log.d(TAG, "JSON File saved to: " + file.getPath());
         } catch (Exception e) {
             Log.i(TAG, "Writing JSON data to a file did not complete sucessfully. :(");
+            e.printStackTrace();
+        }
+    } */
+
+    //Current way:
+    public static void writeDataAsXML() {
+        String fileName = Constants.OfficialEventCode + "_" + "Match" + matchNumber + "_" + "Team" + teamNumber + ".xml";
+        try {
+            File appDir = new File(Environment.getExternalStorageDirectory() + "/MasterFRCScouter");
+            appDir.mkdirs();
+            File baseDir = new File(appDir.getAbsolutePath() + "/MatchData");
+            baseDir.mkdirs();
+            File dir = new File(appDir.getAbsolutePath() + "/" + Constants.OfficialEventCode);
+            dir.mkdirs();
+            File file = new File(dir.getAbsolutePath(), fileName);
+            MatchData DAObject = new MatchData();
+            Serializer serializer = new Persister();
+            serializer.write(DAObject, file);
+            Log.i(TAG, "Writing XML data to a file completed sucessfully! :)");
+            Log.d(TAG, "XML File saved to: " + file.getPath());
+        } catch (Exception e) {
+            Log.i(TAG, "Writing XML data to a file did not complete sucessfully. :(");
             e.printStackTrace();
         }
     }

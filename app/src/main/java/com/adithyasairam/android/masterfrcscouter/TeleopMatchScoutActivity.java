@@ -65,8 +65,7 @@ public class TeleopMatchScoutActivity extends AppCompatActivity implements View.
             case R.id.submitBttn:
                 try {
                     parseData();
-                    //DataParsing.writeDataAsJSON(DataParsing.makeString()); //Old way
-                    DataParsing.writeDataAsJSON();
+                    DataParsing.writeDataAsXML();
                     startActivity(new Intent(this, MatchScoutActivity.class));
                     finish();
                     break;

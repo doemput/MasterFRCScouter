@@ -1,11 +1,11 @@
 package com.adithyasairam.android.masterfrcscouter;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -14,7 +14,6 @@ import com.digits.sdk.android.Digits;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.TwitterCore;
 
-import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import io.fabric.sdk.android.Fabric;
@@ -46,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         importData = (Button) (findViewById(R.id.dataImport));
         //importData.setOnClickListener(this);
         exportData = (Button) (findViewById(R.id.dataExport));
-        //exportData.setOnClickListener(this);
+        exportData.setOnClickListener(this);
         takeBreak = (Button)(findViewById(R.id.takeBreak));
         takeBreak.setOnClickListener(this);
         logOut = (Button)(findViewById(R.id.logOut));
