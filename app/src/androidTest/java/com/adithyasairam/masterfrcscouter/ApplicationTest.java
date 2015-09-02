@@ -1,4 +1,4 @@
-package com.adithyasairam.android.masterfrcscouter;
+package com.adithyasairam.masterfrcscouter;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

@@ -29,7 +29,7 @@
     <string name="teamNumberText">Team Num</string>
     <string name="matchNumberText">Match Num</string>
     <string name="autonomous">Autonomous</string>
-    <string name="scoutingPositionText">Scouting Pos</string>
+    <string name="scoutingPositionText">Position</string>
     <string name="title_activity_teleop_match_scout">Teleoperated</string>
     <string name="title_activity_auton_match_scout">Autonomous</string>
     <string name="redAllianceText">Red Alliance</string>

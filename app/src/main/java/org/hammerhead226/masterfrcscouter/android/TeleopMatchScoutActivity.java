@@ -1,4 +1,4 @@
-package com.adithyasairam.android.masterfrcscouter;
+package org.hammerhead226.masterfrcscouter.android;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,8 +12,14 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.adithyasairam.Utils.Annotations.Changeable;
+import com.adithyasairam.masterfrcscouter.Scouting.ScoutingData.DataParsing;
+import com.adithyasairam.masterfrcscouter.Scouting.ScoutingData.RRStack;
+
 import java.util.ArrayList;
 
+@Changeable(source = TeleopMatchScoutActivity.class,
+        when = Changeable.When.YEARLY, priority = Changeable.Priority.HIGH)
 public class TeleopMatchScoutActivity extends AppCompatActivity implements View.OnClickListener{
 
     Button stackSubmit, submit;
@@ -65,7 +71,7 @@ public class TeleopMatchScoutActivity extends AppCompatActivity implements View.
             case R.id.submitBttn:
                 try {
                     parseData();
-                    DataParsing.writeDataAsXML();
+                    DataParsing.saveMatch();
                     startActivity(new Intent(this, MatchScoutActivity.class));
                     finish();
                     break;

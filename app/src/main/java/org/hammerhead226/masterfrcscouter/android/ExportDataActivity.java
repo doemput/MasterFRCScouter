@@ -1,4 +1,4 @@
-package com.adithyasairam.android.masterfrcscouter;
+package org.hammerhead226.masterfrcscouter.android;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +11,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+
+import com.adithyasairam.masterfrcscouter.Scouting.Scouter;
+
+import org.hammerhead226.masterfrcscouter.Utils.Constants;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -63,6 +67,7 @@ public class ExportDataActivity extends AppCompatActivity implements View.OnClic
         return new ArrayList<File>(Arrays.asList(files.listFiles()));
     }
 
+    //FIXME
     public boolean sendEmail(List<File> filesToAttach) {
         try {
             SharedPreferences prefs = getPreferences(0);
@@ -75,7 +80,7 @@ public class ExportDataActivity extends AppCompatActivity implements View.OnClic
             }
             intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, arrayUri);
             intent.putExtra(Intent.EXTRA_SUBJECT, Scouter.scouterName + "'s scouting data");
-            intent.putExtra(Intent.EXTRA_TEXT, "Data From: " + prefs.getString("event_sel", "IRI2015"));
+            intent.putExtra(Intent.EXTRA_TEXT, "Data From: " + prefs.getString("event_sel", Constants.OfficialEventCode));
             startActivity(intent);
             return true;
         }

@@ -1,20 +1,18 @@
-package com.adithyasairam.android.masterfrcscouter;
+package com.adithyasairam.masterfrcscouter.Scouting.ScoutingData;
 
-import org.simpleframework.xml.Attribute;
-import org.simpleframework.xml.Element;
+import com.adithyasairam.Utils.Annotations.Changeable;
 
 
 /**
  * Created by Adi on 7/14/2015.
  */
-@Element(name = "Stack")
+@Changeable(source = com.adithyasairam.masterfrcscouter.Scouting.ScoutingData.RRStack.class,
+        when = Changeable.When.YEARLY, priority = Changeable.Priority.HIGH)
 public class RRStack implements Comparable<RRStack>{
-    @Attribute(name = "Height")
     public int height;
-    @Attribute(name = "Can On Top")
     public boolean canOnTop;
-    @Attribute(name = "Can On Top With Litter")
     public boolean canOnTopWithLitter;
+
     public RRStack(int h, boolean cOTWL, boolean cOT) {
         height = h;
         canOnTopWithLitter = cOTWL;

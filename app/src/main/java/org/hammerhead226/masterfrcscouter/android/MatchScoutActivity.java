@@ -1,22 +1,23 @@
-package com.adithyasairam.android.masterfrcscouter;
+package org.hammerhead226.masterfrcscouter.android;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
-
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Switch;
 
+import com.adithyasairam.Utils.Annotations.Changeable;
+import com.adithyasairam.masterfrcscouter.Scouting.ScoutingData.DataParsing;
+
+@Changeable(source = MatchScoutActivity.class,
+        when = Changeable.When.YEARLY, priority = Changeable.Priority.HIGH)
 public class MatchScoutActivity extends AppCompatActivity implements View.OnClickListener{
 
     Button autonButton;
-    Switch redOrBlueAlliance;
-    EditText teamNumberET, matchNumberET, scoutingPositonET;
+    EditText teamNumberET, matchNumberET;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,11 +25,8 @@ public class MatchScoutActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_match_scout);
         autonButton = (Button)(findViewById(R.id.autonButton));
         autonButton.setOnClickListener(this);
-        redOrBlueAlliance = (Switch)(findViewById(R.id.scoutingAllianceColorRedToggle));
-        redOrBlueAlliance.setOnClickListener(this);
         teamNumberET = (EditText)(findViewById(R.id.teamNumberET));
         matchNumberET = (EditText)(findViewById(R.id.matchNumberET));
-        scoutingPositonET = (EditText)(findViewById(R.id.scoutingPositionET));
     }
 
     @Override
@@ -58,13 +56,8 @@ public class MatchScoutActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void parseData() {
-        boolean redAlliance = redOrBlueAlliance.isChecked();
-        String allianceColor = "";
-        if (redAlliance) { allianceColor = "Red"; }
-        else { allianceColor = "Blue"; }
         int teamNum = Integer.parseInt(teamNumberET.getText().toString());
         int matchNum = Integer.parseInt(matchNumberET.getText().toString());
-        int scoutingPos = Integer.parseInt(scoutingPositonET.getText().toString());
-        DataParsing.setBasicInfo(teamNum, matchNum, scoutingPos, allianceColor);
+        DataParsing.setBasicInfo(teamNum, matchNum);
     }
 }

@@ -1,4 +1,4 @@
-package com.adithyasairam.android.masterfrcscouter;
+package org.hammerhead226.masterfrcscouter.Utils;
 
 
 /**

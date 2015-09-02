@@ -1,4 +1,4 @@
-package com.adithyasairam.android.masterfrcscouter;
+package org.hammerhead226.masterfrcscouter.android;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,20 +8,36 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+
+import com.adithyasairam.masterfrcscouter.Scouting.Scouter;
+import com.crashlytics.android.Crashlytics;
+
+import io.fabric.sdk.android.Fabric;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final String TAG = "LoginActivity";
     public static String scouterName;
-    EditText Name;
+    public static int scoutingPosition;
+    public static boolean isRedScouter;
+
+    EditText Name, Position;
     Button bLogin;
+    CheckBox rA, bA;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_login);
         Name = (EditText)findViewById(R.id.scouterName);
+        Position = (EditText) findViewById(R.id.editText);
+        rA = (CheckBox) findViewById(R.id.rACheckbox);
+        rA.setOnClickListener(this);
+        bA = (CheckBox) findViewById(R.id.bACheckbox);
+        bA.setOnClickListener(this);
         bLogin = (Button)(findViewById(R.id.bLogin));
         bLogin.setOnClickListener(this);
     }
@@ -51,9 +67,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     public void onClick(View v) {
         switch(v.getId()) {
+            case R.id.rACheckbox:
+                isRedScouter = true;
+                rA.setChecked(true);
+                bA.setChecked(false);
+                rA.setOnClickListener(null);
+                bA.setOnClickListener(null);
+                break;
+            case R.id.bACheckbox:
+                isRedScouter = false;
+                bA.setChecked(true);
+                rA.setChecked(false);
+                rA.setOnClickListener(null);
+                bA.setOnClickListener(null);
+                break;
             case R.id.bLogin:
                 try {
                     scouterName = Name.getText().toString();
+                    scoutingPosition = Integer.parseInt(Position.getText().toString());
                     Log.i(TAG, "Login complete.");
                     Scouter.startSession();
                     Log.i(TAG, "Scouting session started at: " + Scouter.sessionStartTime + ".");

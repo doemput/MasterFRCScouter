@@ -1,21 +1,18 @@
-package com.adithyasairam.android.masterfrcscouter;
+package org.hammerhead226.masterfrcscouter.android;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.webkit.WebView;
 
-public class PitScoutActivity extends AppCompatActivity {
-    WebView myWebView;
+//TODO
+public class ImportDataActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pit_scout);
-        myWebView = (WebView)findViewById(R.id.webView);
-        myWebView.loadUrl(Constants.GoogleFormsURL);
+        setContentView(R.layout.activity_import_data);
     }
 
     @Override

@@ -1,8 +1,8 @@
-package com.adithyasairam.android.masterfrcscouter;
+package org.hammerhead226.masterfrcscouter.android;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,6 +10,11 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import com.adithyasairam.Utils.Annotations.Changeable;
+import com.adithyasairam.masterfrcscouter.Scouting.ScoutingData.DataParsing;
+
+@Changeable(source = AutonMatchScoutActivity.class,
+        when = Changeable.When.YEARLY, priority = Changeable.Priority.HIGH)
 public class AutonMatchScoutActivity extends AppCompatActivity implements View.OnClickListener{
 
     CheckBox driveToAutoZoneCB, roboSetCB, toteSetCB, stackedToteSetCB, binSetCB, didNothingCB, canBurgeledCB;

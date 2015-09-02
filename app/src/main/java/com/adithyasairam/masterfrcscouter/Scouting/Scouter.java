@@ -1,4 +1,8 @@
-package com.adithyasairam.android.masterfrcscouter;
+package com.adithyasairam.masterfrcscouter.Scouting;
+
+import com.adithyasairam.masterfrcscouter.Scouting.ScoutingData.DataStorage;
+
+import org.hammerhead226.masterfrcscouter.android.LoginActivity;
 
 import java.util.Calendar;
 
@@ -8,6 +12,8 @@ import java.util.Calendar;
 
 public class Scouter {
     public static String scouterName = LoginActivity.scouterName;
+    public static int scoutingPosition = LoginActivity.scoutingPosition;
+    public static boolean isRedScouter = LoginActivity.isRedScouter;
     public static long sessionStartTime;
     public long sessionEndTime;
     public long breakTimeStart;
@@ -23,7 +29,12 @@ public class Scouter {
         breakTime = 0;
     }
     public static void startSession() { sessionStartTime = Calendar.getInstance().getTimeInMillis(); }
-    public void endSession() { sessionEndTime =  c.getTimeInMillis(); }
+
+    public void endSession() {
+        sessionEndTime = c.getTimeInMillis();
+        DataStorage.writeAsCSV();
+        DataStorage.writeAsSQL();
+    }
     public void startABreak() { breakTimeStart = c.getTimeInMillis(); }
     public void endABreak() {
         breakTimeEnd = c.getTimeInMillis();
