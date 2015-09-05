@@ -1,4 +1,4 @@
-package org.hammerhead226.masterfrcscouter.TBA;
+package com.adithyasairam.masterfrcscouter.TBA;
 
 import android.os.Environment;
 
@@ -30,6 +30,7 @@ import java.util.Set;
 
 /**
  * Created by Adi on 7/26/2015.
+ * @author Adi
  */
 public class TBARequest {
     private static File basePath = getBasePath();
@@ -393,7 +394,7 @@ public class TBARequest {
         return Arrays.copyOf(dataList.toArray(), dataList.toArray().length, com.adithyasairam.TheBlueAllianceModels.Events.Event[].class);
     }
 
-    @Changeable(source = org.hammerhead226.masterfrcscouter.TBA.TBARequest.class,
+    @Changeable(source = com.adithyasairam.masterfrcscouter.TBA.TBARequest.class,
             when = Changeable.When.YEARLY, priority = Changeable.Priority.HIGH, type = Changeable.Type.METHOD)
     public static MatchInformation_2015.Match GetMatchInformation2015(String matchKey, boolean forceCacheData) {
         MatchInformation_2015.Match match = new MatchInformation_2015.Match();

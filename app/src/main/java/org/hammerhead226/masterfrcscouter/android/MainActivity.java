@@ -1,6 +1,7 @@
 package org.hammerhead226.masterfrcscouter.android;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -28,6 +29,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public static Scouter instance;
 
+    public static SQLiteDatabase database;
+
     Button matchScout, pitScout, info, TBABtn, importData, exportData, takeBreak, logOut;
 
     @Override
@@ -36,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TwitterAuthConfig authConfig = new TwitterAuthConfig(Constants.TWITTER_KEY, Constants.TWITTER_SECRET);
         Fabric.with(this, new Crashlytics(), new TwitterCore(authConfig), new Digits());
         instance = new Scouter();
+        database = setSQLDatabase();
         setContentView(R.layout.activity_main);
         matchScout = (Button)(findViewById(R.id.matchScout));
         matchScout.setOnClickListener(this);
@@ -103,5 +107,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(this, LoginActivity.class));
                 break;
         }
+    }
+
+    private SQLiteDatabase setSQLDatabase() {
+        SQLiteDatabase db = openOrCreateDatabase("Matches.db", SQLiteDatabase.CREATE_IF_NECESSARY, null);
+        try {
+            final String CREATE_TABLE_CONTAIN = "CREATE TABLE IF NOT EXISTS matches";
+            db.execSQL(CREATE_TABLE_CONTAIN);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return db;
     }
 }

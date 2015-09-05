@@ -60,14 +60,14 @@ public class DataParsing {
     public static void saveMatch() {
         MatchData matchData = new MatchData();
         DataStorage.addMatch(matchData);
-        clearFields();
+        //clearFields();
     }
 
     public static void clearFields() {
         for (Field f : com.adithyasairam.masterfrcscouter.Scouting.ScoutingData.DataParsing.class.getFields()) {
             try {
                 f.setAccessible(true);
-                f.set(f.getName(), null);
+                f.set(null, null);
             } catch (Exception e) {
                 e.printStackTrace();
             }

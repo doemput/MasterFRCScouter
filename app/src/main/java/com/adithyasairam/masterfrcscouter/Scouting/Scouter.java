@@ -32,7 +32,6 @@ public class Scouter {
 
     public void endSession() {
         sessionEndTime = c.getTimeInMillis();
-        DataStorage.writeAsCSV();
         DataStorage.writeAsSQL();
     }
     public void startABreak() { breakTimeStart = c.getTimeInMillis(); }

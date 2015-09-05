@@ -10,7 +10,7 @@ import java.util.UUID;
  */
 @Changeable(source = com.adithyasairam.masterfrcscouter.Scouting.ScoutingData.MatchData.class,
         when = Changeable.When.YEARLY, priority = Changeable.Priority.HIGH)
-public class MatchData {
+public class MatchData implements Comparable<MatchData> {
     //Basic:
     public int MatchNumber = DataParsing.matchNumber;
     public String ScouterName = DataParsing.scouterName;
@@ -47,5 +47,13 @@ public class MatchData {
     public int ThisRobotsAproxTotalScore = DataParsing.calculateThisRobotsAproxTotalScore();
 
     public MatchData() {
+    }
+
+    public int compareTo(MatchData other) {
+        if (ThisRobotsAproxTotalScore > other.ThisRobotsAproxTotalScore) {
+            return 1;
+        } else if (ThisRobotsAproxTotalScore < other.ThisRobotsAproxTotalScore) {
+            return -1;
+        } else return 0;
     }
 }

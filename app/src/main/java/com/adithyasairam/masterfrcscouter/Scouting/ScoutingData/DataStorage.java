@@ -1,11 +1,13 @@
 package com.adithyasairam.masterfrcscouter.Scouting.ScoutingData;
 
+import android.content.ContentValues;
+import android.os.Environment;
+
 import org.hammerhead226.masterfrcscouter.Utils.DataRW;
-import org.supercsv.io.CsvListWriter;
-import org.supercsv.prefs.CsvPreference;
+import org.hammerhead226.masterfrcscouter.android.MainActivity;
 
 import java.io.File;
-import java.io.FileWriter;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,24 +37,28 @@ public class DataStorage {
         return matches;
     }
 
-
-    public static void writeAsCSV() {
-        File csv = new File("DB.csv");
-        try {
-            CsvListWriter csvListWriter = new CsvListWriter(new FileWriter(csv), CsvPreference.EXCEL_PREFERENCE);
-            csvListWriter.write(matches);
-            DataRW.addMapEntry("DBCSV", csv);
-        } catch (Exception e) {
-            e.printStackTrace();
+    public static void writeAsSQL() {
+        for (int i = 0; i < matches.size(); i++) {
+            MatchData match = matches.get(i);
+            ContentValues insertValues = new ContentValues();
+            try {
+                for (Field f : match.getClass().getFields()) {
+                    insertValues.put(f.getName(), f.get(null).toString());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            //insertValues.put("Match Number", match.MatchNumber);
+            //insertValues.put("Scouter Name", match.ScouterName);
+            //insertValues.put("Trans", 1);
+            //insertValues.put("EntryDate", "04/06/2011");
+            MainActivity.database.insert("matches", null, insertValues);
         }
     }
 
-    public static void writeAsSQL() {
-
-    }
-
     private static void writeListToDisk() {
-        File file = new File("matches.obj");
+        File file = new File(Environment.getExternalStorageDirectory() + "/MasterFRCScouter" + "/MatchData" + "/matches.obj");
+        file.mkdirs();
         DataRW.writeObjectAsFile(file, matches, "matchList");
     }
 

@@ -7,8 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.adithyasairam.Utils.Annotations.Changeable;
-
-import org.hammerhead226.masterfrcscouter.TBA.TBARequest;
+import com.adithyasairam.masterfrcscouter.TBA.TBARequest;
 
 //TODO
 public class TheBlueAllianceActivity extends AppCompatActivity {
