@@ -1,7 +1,5 @@
 package com.adithyasairam.masterfrcscouter.Scouting;
 
-import com.adithyasairam.masterfrcscouter.Scouting.ScoutingData.DataStorage;
-
 import org.hammerhead226.masterfrcscouter.android.LoginActivity;
 
 import java.util.Calendar;
@@ -32,7 +30,7 @@ public class Scouter {
 
     public void endSession() {
         sessionEndTime = c.getTimeInMillis();
-        DataStorage.writeAsSQL();
+        //DataStorage.writeListToTable();
     }
     public void startABreak() { breakTimeStart = c.getTimeInMillis(); }
     public void endABreak() {

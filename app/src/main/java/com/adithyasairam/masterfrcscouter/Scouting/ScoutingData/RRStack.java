@@ -18,6 +18,7 @@ public class RRStack implements Comparable<RRStack>{
         canOnTopWithLitter = cOTWL;
         canOnTop = cOT;
     }
+
     public int calculateStackScore() {
         int score = 0;
         score += height * 2;
@@ -25,6 +26,17 @@ public class RRStack implements Comparable<RRStack>{
         else if (canOnTop) { score += (height * 4); }
         return score;
     }
+
+    public String toString() {
+        String s = "{ ";
+        s += " Height: " + height + "\n";
+        s += " Has a Can on Top with Litter: " + canOnTopWithLitter + "\n";
+        s += " Has a Can on Top: " + canOnTop + "\n";
+        s += " Score: " + calculateStackScore() + "\n";
+        s += "}" + "\n";
+        return s;
+    }
+
     public int compareTo(RRStack other) {
         if (this.calculateStackScore() > other.calculateStackScore()) { return 1; }
         else if (this.calculateStackScore() < other.calculateStackScore()) { return -1; }

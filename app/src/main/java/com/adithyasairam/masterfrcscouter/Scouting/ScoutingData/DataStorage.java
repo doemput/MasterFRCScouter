@@ -27,6 +27,7 @@ public class DataStorage {
         }
         matches.add(matchData);
         writeListToDisk();
+        writeAMatchToTable(matchData);
     }
 
     public MatchData getMatch(int num) {
@@ -37,21 +38,48 @@ public class DataStorage {
         return matches;
     }
 
-    public static void writeAsSQL() {
+
+    public static void writeAMatchToTable(MatchData match) {
+        ContentValues insertValues = new ContentValues();
+        try {
+            for (Field f : match.getClass().getFields()) {
+                f.setAccessible(true);
+                if (f.getName().equals("Stacks")) {
+                    List<RRStack> stacks = (List<RRStack>) f.get(null);
+                    for (int j = 0; j < stacks.size(); j++) {
+                        insertValues.put("Stack " + j, stacks.get(j).toString());
+                    }
+                } else {
+                    insertValues.put(f.getName(), f.get(null).toString());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //insertValues = match.setContentValues(insertValues);
+        MainActivity.database.insert("matches", null, insertValues);
+    }
+
+    public static void writeListToTable() {
         for (int i = 0; i < matches.size(); i++) {
             MatchData match = matches.get(i);
             ContentValues insertValues = new ContentValues();
             try {
                 for (Field f : match.getClass().getFields()) {
-                    insertValues.put(f.getName(), f.get(null).toString());
+                    f.setAccessible(true);
+                    if (f.getName().equals("Stacks")) {
+                        List<RRStack> stacks = (List<RRStack>) f.get(null);
+                        for (int j = 0; j < stacks.size(); j++) {
+                            insertValues.put("Stack " + j, stacks.get(j).toString());
+                        }
+                    } else {
+                        insertValues.put(f.getName(), f.get(null).toString());
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            //insertValues.put("Match Number", match.MatchNumber);
-            //insertValues.put("Scouter Name", match.ScouterName);
-            //insertValues.put("Trans", 1);
-            //insertValues.put("EntryDate", "04/06/2011");
+            //insertValues = match.setContentValues(insertValues);
             MainActivity.database.insert("matches", null, insertValues);
         }
     }
