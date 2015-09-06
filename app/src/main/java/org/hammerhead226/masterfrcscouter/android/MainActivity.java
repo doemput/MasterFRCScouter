@@ -18,18 +18,20 @@ import com.twitter.sdk.android.core.TwitterCore;
 
 import org.hammerhead226.masterfrcscouter.Utils.Constants;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-
-
     private static final String TAG = "MainActivity";
 
     public static Scouter instance;
 
+    protected MyApplication app;
+
     public static SQLiteDatabase database;
+    public static File csvFile;
 
     Button matchScout, pitScout, info, TBABtn, importData, exportData, takeBreak, logOut;
 
@@ -39,7 +41,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TwitterAuthConfig authConfig = new TwitterAuthConfig(Constants.TWITTER_KEY, Constants.TWITTER_SECRET);
         Fabric.with(this, new Crashlytics(), new TwitterCore(authConfig), new Digits());
         instance = new Scouter();
-        database = setSQLDatabase();
+        app = (MyApplication) getApplication();
+        database = app.initDB();
+        csvFile = new File(Constants.getMatchDataDir(), "Matches.csv");
+        if (!csvFile.isFile()) throw new AssertionError();
         setContentView(R.layout.activity_main);
         matchScout = (Button)(findViewById(R.id.matchScout));
         matchScout.setOnClickListener(this);
@@ -107,16 +112,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(this, LoginActivity.class));
                 break;
         }
-    }
-
-    private SQLiteDatabase setSQLDatabase() {
-        SQLiteDatabase db = openOrCreateDatabase("Matches.db", SQLiteDatabase.CREATE_IF_NECESSARY, null);
-        try {
-            final String CREATE_TABLE_CONTAIN = "CREATE TABLE IF NOT EXISTS matches";
-            db.execSQL(CREATE_TABLE_CONTAIN);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return db;
     }
 }

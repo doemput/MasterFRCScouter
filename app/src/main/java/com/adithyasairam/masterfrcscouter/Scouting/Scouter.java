@@ -17,10 +17,8 @@ public class Scouter {
     public long breakTimeStart;
     public long breakTimeEnd;
     public long breakTime;
-    public Calendar c;
     public Scouter() {
-        c = Calendar.getInstance();
-        sessionStartTime = c.getTimeInMillis();
+        sessionStartTime = System.currentTimeMillis();
         sessionEndTime = 0;
         breakTimeStart = 0;
         breakTimeEnd = 0;
@@ -28,16 +26,20 @@ public class Scouter {
     }
     public static void startSession() { sessionStartTime = Calendar.getInstance().getTimeInMillis(); }
 
-    public void endSession() {
-        sessionEndTime = c.getTimeInMillis();
-        //DataStorage.writeListToTable();
+    public void startABreak() {
+        breakTimeStart = System.currentTimeMillis();
     }
-    public void startABreak() { breakTimeStart = c.getTimeInMillis(); }
+
     public void endABreak() {
-        breakTimeEnd = c.getTimeInMillis();
+        breakTimeEnd = System.currentTimeMillis();
         breakTime += (breakTimeEnd - breakTimeStart);
         breakTimeStart = 0;
         breakTimeEnd = 0;
     }
+
+    public void endSession() {
+        sessionEndTime = System.currentTimeMillis();
+    }
+
     public long getTotalTimeScouted() { return ((sessionEndTime - sessionStartTime) - breakTime); }
 }

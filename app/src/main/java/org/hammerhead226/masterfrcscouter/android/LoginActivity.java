@@ -68,21 +68,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.rACheckbox:
+                if ((rA.isChecked() && bA.isChecked())) throw new AssertionError();
                 isRedScouter = true;
-                rA.setChecked(true);
-                bA.setChecked(false);
-                rA.setOnClickListener(null);
-                bA.setOnClickListener(null);
+                rA.setActivated(true);
+                bA.setActivated(false);
                 break;
             case R.id.bACheckbox:
+                if ((rA.isChecked() && bA.isChecked())) throw new AssertionError();
                 isRedScouter = false;
-                bA.setChecked(true);
-                rA.setChecked(false);
-                rA.setOnClickListener(null);
-                bA.setOnClickListener(null);
+                bA.setActivated(true);
+                rA.setActivated(false);
                 break;
             case R.id.bLogin:
                 try {
+                    if ((rA.isChecked() && bA.isChecked())) throw new AssertionError();
                     scouterName = Name.getText().toString();
                     scoutingPosition = Integer.parseInt(Position.getText().toString());
                     Log.i(TAG, "Login complete.");

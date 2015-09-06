@@ -17,9 +17,11 @@ import com.adithyasairam.masterfrcscouter.Scouting.Scouter;
 import org.hammerhead226.masterfrcscouter.Utils.Constants;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+
+import io.realm.Realm;
 
 public class ExportDataActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -62,26 +64,40 @@ public class ExportDataActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-    public ArrayList<File> getFilesToSend() {
+    public List<File> getFilesToSend() {
+        addRealmFile();
         File files = new File(Environment.getExternalStorageDirectory() + "/MasterFRCScouter" + "/MatchData");
-        return new ArrayList<File>(Arrays.asList(files.listFiles()));
+        List<File> fileList = Arrays.asList(files.listFiles());
+        return fileList;
+    }
+
+    private void addRealmFile() {
+        Realm realm = Realm.getDefaultInstance();
+        File exportRealmFile = null;
+        try {
+            exportRealmFile = new File(Constants.getMatchDataDir(), "matches.realm");
+            exportRealmFile.delete();
+            realm.writeCopyTo(exportRealmFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        realm.close();
     }
 
     //FIXME
     public boolean sendEmail(List<File> filesToAttach) {
         try {
             SharedPreferences prefs = getPreferences(0);
-
             Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
             intent.setType("text/plain");
-            ArrayList<Uri> arrayUri = new ArrayList<Uri>();
             for (File f : filesToAttach) {
-                arrayUri.add(Uri.fromFile(f));
+                Uri u = Uri.fromFile(f);
+                intent.putExtra(Intent.EXTRA_STREAM, u);
             }
-            intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, arrayUri);
+            intent.putExtra(Intent.EXTRA_EMAIL, "Exported Scouting Data");
             intent.putExtra(Intent.EXTRA_SUBJECT, Scouter.scouterName + "'s scouting data");
-            intent.putExtra(Intent.EXTRA_TEXT, "Data From: " + prefs.getString("event_sel", Constants.OfficialEventCode));
-            startActivity(intent);
+            intent.putExtra(Intent.EXTRA_TEXT, "Data From: " + prefs.getString("event_sel", "Some FRC Event"));
+            startActivity(Intent.createChooser(intent, "Export Data via Email"));
             return true;
         }
         catch (Exception e) {

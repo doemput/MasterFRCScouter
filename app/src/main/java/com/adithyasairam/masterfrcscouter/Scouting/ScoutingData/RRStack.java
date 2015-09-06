@@ -28,12 +28,21 @@ public class RRStack implements Comparable<RRStack>{
     }
 
     public String toString() {
+        boolean multiline = false;
         String s = "{ ";
-        s += " Height: " + height + "\n";
-        s += " Has a Can on Top with Litter: " + canOnTopWithLitter + "\n";
-        s += " Has a Can on Top: " + canOnTop + "\n";
-        s += " Score: " + calculateStackScore() + "\n";
-        s += "}" + "\n";
+        if (multiline) {
+            s += " Height: " + height + "\n";
+            s += " Has a Can on Top with Litter: " + canOnTopWithLitter + "\n";
+            s += " Has a Can on Top: " + canOnTop + "\n";
+            s += " Score: " + calculateStackScore() + "\n";
+            s += "}";
+        } else {
+            s += " Height: " + height;
+            s += " Has a Can on Top with Litter: " + canOnTopWithLitter;
+            s += " Has a Can on Top: " + canOnTop;
+            s += " Score: " + calculateStackScore();
+            s += "}";
+        }
         return s;
     }
 

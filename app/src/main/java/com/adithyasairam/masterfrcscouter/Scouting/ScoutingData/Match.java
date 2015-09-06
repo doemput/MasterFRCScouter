@@ -1,26 +1,26 @@
 package com.adithyasairam.masterfrcscouter.Scouting.ScoutingData;
 
+import android.content.ContentValues;
+
 import com.adithyasairam.Utils.Annotations.Changeable;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
-
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by Adi on 7/16/2015.
  */
-@Changeable(source = MatchData.class,
+@Changeable(source = Match.class,
         when = Changeable.When.YEARLY, priority = Changeable.Priority.HIGH)
-public class MatchData extends RealmObject implements Comparable<MatchData> {
+public class Match implements Comparable<Match> {
     //Basic:
     private int MatchNumber = DataParsing.matchNumber;
     private String ScouterName = DataParsing.scouterName;
     private int TeamNumber = DataParsing.teamNumber;
     //private String TeamName = TeamNumber + " - " + TBARequest.GetTeamInformation(("frc" + TeamNumber), false).name;
     private String ScoutingPosition = DataParsing.allianceColor + DataParsing.scoutingPosition;
-    @PrimaryKey
     private String RandomID = UUID.randomUUID().toString();
 
     //Auton:
@@ -50,7 +50,51 @@ public class MatchData extends RealmObject implements Comparable<MatchData> {
     private int ThisRobotsAproxCOOPScore = DataParsing.calculateThisRobotsAproxCoopScore();
     private int ThisRobotsAproxTotalScore = DataParsing.calculateThisRobotsAproxTotalScore();
 
-    public int compareTo(MatchData other) {
+    public ContentValues setContentValues(ContentValues insertValues) {
+        Map<String, Object> stringObjectMap = getKeyPairValues();
+        Object[] keys = stringObjectMap.keySet().toArray();
+        for (int i = 0; i < stringObjectMap.size(); i++) {
+            insertValues.put(((String) keys[i]), (stringObjectMap.get(keys[i]).toString()));
+        }
+        return insertValues;
+    }
+
+    public Map<String, Object> getKeyPairValues() {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("Match Number", MatchNumber);
+        map.put("Scouter Name", ScouterName);
+        map.put("Team Number", TeamNumber);
+        map.put("Scouting Position", ScoutingPosition);
+        map.put("Random ID", RandomID);
+
+        map.put("Robot Drove to Auto Zone", RobotDroveToAutoZone);
+        map.put("Robot did noting during Auton", RobotDidNothingDuringAuton);
+        map.put("Robot Set Scored in Auton", RobotSetScoredInAuton);
+        map.put("Robot Scored a Tote in Auton", RobotScoredAToteSetInAuton);
+        map.put("Robot Scored a Tote Set in Auton", RobotScoredAToteSetInAuton);
+        map.put("Robot Scored a Stacked Tote Set in Auton", RobotScoredAStackedToteSetInAuton);
+        map.put("Robot Scored a Bin Set in Auton", RobotScoredABinSetDuringAuton);
+        map.put("Robot Can Burgeled in Auton", RobotCanGrabbedDuringAuton);
+        map.put("Robot Num Cans Grabbed in Auton", NumberOfCansGrabbedDuringAuton);
+        map.put("Robot Num Acquired Bins in Auton", NumberOfAcquiredBinsInAuton);
+        map.put("Robot Num Auton Foul Points", NumberOfAutonFoulPoints);
+
+        map.put("Robot Scored a COOP Set in Auton", WasACOOPSetScoredInTeleop);
+        map.put("Robot Scored a COOP Stack in Auton", WasACOOPStackScoredInTeleop);
+        map.put("Robot Num Stacks Scored", NumberOfStacksScoredInTeleop);
+        for (int i = 0; i < Stacks.size(); i++) {
+            map.put("Stack " + i, Stacks.get(i).toString());
+        }
+        map.put("Robot Num Teleop Foul Points", NumberOfTeleopFoulPoints);
+
+        map.put("Robot Aprox Auton Score", ThisRobotsAproxAutonScore);
+        map.put("Robot Aprox Teleop Score", ThisRobotsAproxTeleopScore);
+        map.put("Robot Aprox COOP Score", ThisRobotsAproxCOOPScore);
+        map.put("Robot Aprox Total Score", ThisRobotsAproxTotalScore);
+        return map;
+    }
+
+    public int compareTo(Match other) {
         if (ThisRobotsAproxTotalScore > other.ThisRobotsAproxTotalScore) {
             return 1;
         } else if (ThisRobotsAproxTotalScore < other.ThisRobotsAproxTotalScore) {

@@ -58,8 +58,7 @@ public class DataParsing {
     }
 
     public static void saveMatch() {
-        MatchData matchData = new MatchData();
-        DataStorage.addMatch(matchData);
+        DataStorage.addMatch();
         //clearFields();
     }
 

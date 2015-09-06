@@ -1,45 +1,64 @@
 package com.adithyasairam.masterfrcscouter.Scouting.ScoutingData;
 
 import android.content.ContentValues;
-import android.os.Environment;
 
 import org.hammerhead226.masterfrcscouter.Utils.DataRW;
 import org.hammerhead226.masterfrcscouter.android.MainActivity;
+import org.supercsv.io.CsvBeanWriter;
+import org.supercsv.io.ICsvBeanWriter;
+import org.supercsv.prefs.CsvPreference;
 
-import java.io.File;
+import java.io.FileWriter;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
+
+import io.realm.Realm;
 
 /**
  * Created by Adi on 8/30/2015.
  */
 public class DataStorage {
-    private static List<MatchData> matches;
 
     public DataStorage() {
-        init();
     }
 
-    public static void addMatch(MatchData matchData) {
-        if (matches == null) {
-            init();
+    public static void addMatch() {
+        appendAMatchToCSVFile();
+        appendAMatchToSQLTable();
+        appendAMatchToRealmDB();
+    }
+
+    public static void appendAMatchToCSVFile() {
+        Match match = new Match();
+        String[] header;
+        try {
+            Field[] fields = match.getClass().getFields();
+            int tmp = match.getStacks().size();
+            header = new String[fields.length + tmp];
+            for (int i = 0; i < fields.length; i++) {
+                Field f = fields[i];
+                f.setAccessible(true);
+                if (f.getName().equals("Stacks")) {
+                    List<RRStack> stacks = (List<RRStack>) f.get(null);
+                    for (int j = 0; j < stacks.size(); j++) {
+                        header[i] = "stack" + j;
+                    }
+                } else {
+                    header[i] = f.getName();
+                }
+            }
+            ICsvBeanWriter csvBeanWriter = new CsvBeanWriter(new FileWriter(MainActivity.csvFile),
+                    CsvPreference.EXCEL_PREFERENCE);
+            csvBeanWriter.writeHeader(header);
+            csvBeanWriter.write(match, header);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        matches.add(matchData);
-        writeListToDisk();
-        writeAMatchToTable(matchData);
+        DataRW.addMapEntry("csvFile", MainActivity.csvFile);
     }
 
-    public MatchData getMatch(int num) {
-        return matches.get(num);
-    }
-
-    public List<MatchData> getMatches() {
-        return matches;
-    }
-
-
-    public static void writeAMatchToTable(MatchData match) {
+    public static void appendAMatchToSQLTable() {
+        Match match = new Match();
         ContentValues insertValues = new ContentValues();
         try {
             for (Field f : match.getClass().getFields()) {
@@ -58,39 +77,13 @@ public class DataStorage {
         }
         //insertValues = match.setContentValues(insertValues);
         MainActivity.database.insert("matches", null, insertValues);
+        //DataRW.addMapEntry("dbFile", new File(MainActivity.database.getPath()));
     }
 
-    public static void writeListToTable() {
-        for (int i = 0; i < matches.size(); i++) {
-            MatchData match = matches.get(i);
-            ContentValues insertValues = new ContentValues();
-            try {
-                for (Field f : match.getClass().getFields()) {
-                    f.setAccessible(true);
-                    if (f.getName().equals("Stacks")) {
-                        List<RRStack> stacks = (List<RRStack>) f.get(null);
-                        for (int j = 0; j < stacks.size(); j++) {
-                            insertValues.put("Stack " + j, stacks.get(j).toString());
-                        }
-                    } else {
-                        insertValues.put(f.getName(), f.get(null).toString());
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            //insertValues = match.setContentValues(insertValues);
-            MainActivity.database.insert("matches", null, insertValues);
-        }
-    }
-
-    private static void writeListToDisk() {
-        File file = new File(Environment.getExternalStorageDirectory() + "/MasterFRCScouter" + "/MatchData" + "/matches.obj");
-        file.mkdirs();
-        DataRW.writeObjectAsFile(file, matches, "matchList");
-    }
-
-    private static void init() {
-        matches = new ArrayList<MatchData>();
+    public static void appendAMatchToRealmDB() {
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        MatchData matchData = realm.createObject(MatchData.class);
+        realm.commitTransaction();
     }
 }
