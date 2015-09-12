@@ -7,75 +7,13 @@
     tools:context="org.hammerhead226.masterfrcscouter.android.AutonMatchScoutActivity"
     android:clickable="true">
 
-    <CheckBox
+    <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/driveToAutoZoneText"
-        android:id="@+id/driveToAutoZoneBool"
+        android:id="@+id/autonItems"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/robotSetText"
-        android:id="@+id/robotSetBool"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/numAutoFouls" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/toteSetText"
-        android:id="@+id/toteSetBool"
-        android:layout_alignBottom="@+id/stackedToteSetBool"
-        android:layout_alignParentStart="true" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/stackedToteSetText"
-        android:id="@+id/stackedToteSetBool"
-        android:layout_below="@+id/robotSetBool"
-        android:layout_alignEnd="@+id/numCansGrabbed"
-        android:layout_marginTop="43dp" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/binSetText"
-        android:id="@+id/binSetBool"
-        android:layout_alignTop="@+id/didNothingBool"
-        android:layout_alignParentStart="true" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/didNothingText"
-        android:id="@+id/didNothingBool"
-        android:layout_above="@+id/numCansGrabbed"
-        android:layout_alignEnd="@+id/numCansGrabbed"
-        android:layout_marginBottom="30dp" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/canBurgeledText"
-        android:id="@+id/canBurgeledBool"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="9"
-        android:id="@+id/numCansGrabbed"
-        android:hint="@string/numCansGrabbedText"
-        android:enabled="true"
-        android:layout_alignBaseline="@+id/canBurgeledBool"
-        android:layout_alignBottom="@+id/canBurgeledBool"
-        android:layout_alignParentEnd="true" />
+        android:layout_toStartOf="@+id/acquiredStepBins"
+        android:layout_above="@+id/goToTeleop" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -85,9 +23,8 @@
         android:id="@+id/acquiredStepBins"
         android:hint="@string/acquiredStepBinsText"
         android:enabled="true"
-        android:layout_below="@+id/numCansGrabbed"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="47dp" />
+        android:layout_alignTop="@+id/autonItems"
+        android:layout_alignParentEnd="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -99,16 +36,16 @@
         android:enabled="true"
         android:editable="false"
         android:clickable="false"
-        android:layout_alignTop="@+id/acquiredStepBins"
-        android:layout_alignEnd="@+id/numCansGrabbed" />
+        android:layout_marginTop="48dp"
+        android:layout_below="@+id/acquiredStepBins"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/goToTeleop"
         android:text="@string/teleopText"
-        android:layout_below="@+id/acquiredStepBins"
-        android:layout_toEndOf="@+id/canBurgeledBool"
-        android:layout_marginTop="53dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

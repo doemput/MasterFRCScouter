@@ -9,62 +9,13 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/submitBttn"
+        android:layout_above="@+id/nextBttn"
         android:id="@+id/mainFrameLayout">
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="143dp"
-            android:layout_gravity="left|top"
-            android:background="@drawable/layout_border"
-            android:id="@+id/mainTeleopFrame">
-
-            <EditText
-                android:layout_width="165dp"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="10"
-                android:id="@+id/numHumanLitterThrownET"
-                android:layout_gravity="left|top"
-                android:hint="@string/numHumanLitterThrownText" />
-
-            <EditText
-                android:layout_width="165dp"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="10"
-                android:id="@+id/numLitterPushedET"
-                android:layout_gravity="right|top"
-                android:hint="@string/numLitterPushedText" />
-
-            <EditText
-                android:layout_width="95dp"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="10"
-                android:id="@+id/numTeleFoulsET"
-                android:layout_gravity="left|center_vertical"
-                android:hint="@string/numTeleFoulsText" />
-
-            <Switch
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/coopStackText"
-                android:id="@+id/coopStackSwitch"
-                android:layout_gravity="center_horizontal|bottom" />
-
-            <Switch
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/coopSetText"
-                android:id="@+id/coopSetSwitch"
-                android:layout_gravity="right|center_vertical" />
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="135dp"
-            android:layout_gravity="right|center_vertical"
+            android:layout_height="148dp"
+            android:layout_gravity="right|top"
             android:id="@+id/stackSubmitFrame"
             android:background="@drawable/layout_border">
 
@@ -99,25 +50,108 @@
                 android:layout_gravity="right|center_vertical" />
         </FrameLayout>
 
-        <TextView
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="134dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/commentsTextArea"
-            android:layout_gravity="left|bottom"
-            android:hint="@string/commentsText"
-            android:focusableInTouchMode="true"
-            android:editable="true"
-            android:autoText="false"
-            android:background="@drawable/layout_border" />
+            android:layout_height="90dp"
+            android:layout_gravity="center"
+            android:id="@+id/toteStackFrameLayout"
+            android:background="@drawable/layout_border">
+
+            <CheckBox
+                android:layout_width="177dp"
+                android:layout_height="wrap_content"
+                android:text="@string/totesFromHumanFeederText"
+                android:id="@+id/totesFromHumanFeeder"
+                android:layout_gravity="left|top" />
+
+            <CheckBox
+                android:layout_width="122dp"
+                android:layout_height="wrap_content"
+                android:text="@string/totesFromLandfillText"
+                android:id="@+id/totesFromLandfill"
+                android:layout_gravity="right|top" />
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:text="@string/cappedCansText"
+                android:id="@+id/canCappedSwitch"
+                android:layout_gravity="left|bottom" />
+
+            <EditText
+                android:layout_width="137dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/numCansCappedET"
+                android:layout_gravity="right|bottom"
+                android:hint="@string/numCansCappedText" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_gravity="center_horizontal|bottom"
+            android:background="@drawable/layout_border"
+            android:id="@+id/miscFrameLayout">
+
+            <Switch
+                android:layout_width="106dp"
+                android:layout_height="69dp"
+                android:text="@string/knockedOverStacksText"
+                android:id="@+id/knockedStackSwitch"
+                android:layout_gravity="left|top"
+                android:singleLine="false"
+                android:lines="3" />
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:text="@string/coopSetText"
+                android:id="@+id/coopSetSwitch"
+                android:layout_gravity="left|center_vertical" />
+
+            <EditText
+                android:layout_width="129dp"
+                android:layout_height="56dp"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/allianceScoreET"
+                android:layout_gravity="left|bottom"
+                android:hint="@string/allianceScoreText" />
+
+            <EditText
+                android:layout_width="105dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/numTeleFoulsET"
+                android:layout_gravity="right|bottom"
+                android:hint="@string/numTeleFoulsText" />
+
+            <Switch
+                android:layout_width="111dp"
+                android:layout_height="43dp"
+                android:text="@string/coopStackText"
+                android:id="@+id/coopStackSwitch"
+                android:layout_gravity="right|center_vertical" />
+
+            <Switch
+                android:layout_width="112dp"
+                android:layout_height="62dp"
+                android:text="@string/robotWasPoorlyDrivenText"
+                android:id="@+id/badDrivingSwitch"
+                android:layout_gravity="right|top" />
+
+        </FrameLayout>
 
     </FrameLayout>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/submitText"
-        android:id="@+id/submitBttn"
+        android:text="@string/nextText"
+        android:id="@+id/nextBttn"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true" />
 

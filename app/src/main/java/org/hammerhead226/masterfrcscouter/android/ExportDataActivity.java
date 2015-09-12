@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -57,9 +56,8 @@ public class ExportDataActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.exportDataButton:
-                boolean done = sendEmail(getFilesToSend());
-                Log.i(TAG, "Export of data via Email complete: " + done);
-                if (done) { startActivity(new Intent(this, MainActivity.class)); }
+                sendEmail(getFilesToSend());
+                startActivity(new Intent(this, MainActivity.class));
                 break;
         }
     }
@@ -84,8 +82,8 @@ public class ExportDataActivity extends AppCompatActivity implements View.OnClic
         realm.close();
     }
 
-    //FIXME
-    public boolean sendEmail(List<File> filesToAttach) {
+    //FIXME: Test!!!
+    public void sendEmail(List<File> filesToAttach) {
         try {
             SharedPreferences prefs = getPreferences(0);
             Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
@@ -98,11 +96,9 @@ public class ExportDataActivity extends AppCompatActivity implements View.OnClic
             intent.putExtra(Intent.EXTRA_SUBJECT, Scouter.scouterName + "'s scouting data");
             intent.putExtra(Intent.EXTRA_TEXT, "Data From: " + prefs.getString("event_sel", "Some FRC Event"));
             startActivity(Intent.createChooser(intent, "Export Data via Email"));
-            return true;
         }
         catch (Exception e) {
             e.printStackTrace();
-            return false;
         }
     }
 }

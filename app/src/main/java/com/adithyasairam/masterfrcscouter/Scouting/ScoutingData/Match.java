@@ -1,12 +1,8 @@
 package com.adithyasairam.masterfrcscouter.Scouting.ScoutingData;
 
-import android.content.ContentValues;
-
 import com.adithyasairam.Utils.Annotations.Changeable;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -24,23 +20,24 @@ public class Match implements Comparable<Match> {
     private String RandomID = UUID.randomUUID().toString();
 
     //Auton:
-    private boolean RobotDroveToAutoZone = DataParsing.droveToAuto;
-    private boolean RobotDidNothingDuringAuton = DataParsing.didNothing;
-    private boolean RobotSetScoredInAuton = DataParsing.roboSet;
-    private boolean RobotScoredAToteSetInAuton = DataParsing.toteSet;
-    private boolean RobotScoredAStackedToteSetInAuton = DataParsing.stackedToteSet; // Buzz Buzz Buzz
-    private boolean RobotScoredABinSetDuringAuton = DataParsing.binSet;
-    private boolean RobotCanGrabbedDuringAuton = DataParsing.canGrabbed;
-    private int NumberOfCansGrabbedDuringAuton = DataParsing.numCansGrabbed;
+    private String AutonMode = DataParsing.autonMode;
     private int NumberOfAcquiredBinsInAuton = DataParsing.acquiredBins;
     private int NumberOfAutonFoulPoints = DataParsing.autoFouls;
 
+    //Can Burgling Auton Only!!!
+    private int NumAutonCansAttemptedToBurgle = DataParsing.numAutonCansAttemptedToBurgle;
+    private int NumAutonCansBurgled = DataParsing.numAutonCansBurgled;
+    private double CanBurglingSpeed = DataParsing.canBurglingSpeed;
+
     //Teleop:
-    //private int AmountOfLitterThrownByThisTeam = DataParsing.numHumanLitterThrown;
-    //private int AmountOfLitterPushedByThisRobot = DataParsing.numLitterPushed;
     private boolean WasACOOPSetScoredInTeleop = DataParsing.coopSet;
     private boolean WasACOOPStackScoredInTeleop = DataParsing.coopStack;
+    private boolean AreStacksDown = DataParsing.stackDown;
+    private boolean RobotWasPoorlyDriven = DataParsing.badDriving;
+    private boolean RobotDidCap = DataParsing.didCap;
+    private int NumberOfCaps = DataParsing.numCansCapped;
     private int NumberOfStacksScoredInTeleop = DataParsing.rrStackList.size();
+    private String ToteSource = DataParsing.toteSource;
     private List<RRStack> Stacks = DataParsing.rrStackList;
     private int NumberOfTeleopFoulPoints = DataParsing.numTeleFoulsPoints;
 
@@ -49,50 +46,10 @@ public class Match implements Comparable<Match> {
     private int ThisRobotsAproxTeleopScore = DataParsing.calculateThisRobotsAproxTeleopScore();
     private int ThisRobotsAproxCOOPScore = DataParsing.calculateThisRobotsAproxCoopScore();
     private int ThisRobotsAproxTotalScore = DataParsing.calculateThisRobotsAproxTotalScore();
+    private int TotalAllianceScore = DataParsing.allianceScore;
 
-    public ContentValues setContentValues(ContentValues insertValues) {
-        Map<String, Object> stringObjectMap = getKeyPairValues();
-        Object[] keys = stringObjectMap.keySet().toArray();
-        for (int i = 0; i < stringObjectMap.size(); i++) {
-            insertValues.put(((String) keys[i]), (stringObjectMap.get(keys[i]).toString()));
-        }
-        return insertValues;
-    }
-
-    public Map<String, Object> getKeyPairValues() {
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("Match Number", MatchNumber);
-        map.put("Scouter Name", ScouterName);
-        map.put("Team Number", TeamNumber);
-        map.put("Scouting Position", ScoutingPosition);
-        map.put("Random ID", RandomID);
-
-        map.put("Robot Drove to Auto Zone", RobotDroveToAutoZone);
-        map.put("Robot did noting during Auton", RobotDidNothingDuringAuton);
-        map.put("Robot Set Scored in Auton", RobotSetScoredInAuton);
-        map.put("Robot Scored a Tote in Auton", RobotScoredAToteSetInAuton);
-        map.put("Robot Scored a Tote Set in Auton", RobotScoredAToteSetInAuton);
-        map.put("Robot Scored a Stacked Tote Set in Auton", RobotScoredAStackedToteSetInAuton);
-        map.put("Robot Scored a Bin Set in Auton", RobotScoredABinSetDuringAuton);
-        map.put("Robot Can Burgeled in Auton", RobotCanGrabbedDuringAuton);
-        map.put("Robot Num Cans Grabbed in Auton", NumberOfCansGrabbedDuringAuton);
-        map.put("Robot Num Acquired Bins in Auton", NumberOfAcquiredBinsInAuton);
-        map.put("Robot Num Auton Foul Points", NumberOfAutonFoulPoints);
-
-        map.put("Robot Scored a COOP Set in Auton", WasACOOPSetScoredInTeleop);
-        map.put("Robot Scored a COOP Stack in Auton", WasACOOPStackScoredInTeleop);
-        map.put("Robot Num Stacks Scored", NumberOfStacksScoredInTeleop);
-        for (int i = 0; i < Stacks.size(); i++) {
-            map.put("Stack " + i, Stacks.get(i).toString());
-        }
-        map.put("Robot Num Teleop Foul Points", NumberOfTeleopFoulPoints);
-
-        map.put("Robot Aprox Auton Score", ThisRobotsAproxAutonScore);
-        map.put("Robot Aprox Teleop Score", ThisRobotsAproxTeleopScore);
-        map.put("Robot Aprox COOP Score", ThisRobotsAproxCOOPScore);
-        map.put("Robot Aprox Total Score", ThisRobotsAproxTotalScore);
-        return map;
-    }
+    //Other
+    private String Comments = DataParsing.comments;
 
     public int compareTo(Match other) {
         if (ThisRobotsAproxTotalScore > other.ThisRobotsAproxTotalScore) {
@@ -106,95 +63,215 @@ public class Match implements Comparable<Match> {
         return MatchNumber;
     }
 
+    public void setMatchNumber(int matchNumber) {
+        MatchNumber = matchNumber;
+    }
+
     public String getScouterName() {
         return ScouterName;
+    }
+
+    public void setScouterName(String scouterName) {
+        ScouterName = scouterName;
     }
 
     public int getTeamNumber() {
         return TeamNumber;
     }
 
+    public void setTeamNumber(int teamNumber) {
+        TeamNumber = teamNumber;
+    }
+
     public String getScoutingPosition() {
         return ScoutingPosition;
+    }
+
+    public void setScoutingPosition(String scoutingPosition) {
+        ScoutingPosition = scoutingPosition;
     }
 
     public String getRandomID() {
         return RandomID;
     }
 
-    public boolean isRobotDroveToAutoZone() {
-        return RobotDroveToAutoZone;
+    public void setRandomID(String randomID) {
+        RandomID = randomID;
     }
 
-    public boolean isRobotDidNothingDuringAuton() {
-        return RobotDidNothingDuringAuton;
+    public String getAutonMode() {
+        return AutonMode;
     }
 
-    public boolean isRobotSetScoredInAuton() {
-        return RobotSetScoredInAuton;
-    }
-
-    public boolean isRobotScoredAToteSetInAuton() {
-        return RobotScoredAToteSetInAuton;
-    }
-
-    public boolean isRobotScoredAStackedToteSetInAuton() {
-        return RobotScoredAStackedToteSetInAuton;
-    }
-
-    public boolean isRobotScoredABinSetDuringAuton() {
-        return RobotScoredABinSetDuringAuton;
-    }
-
-    public boolean isRobotCanGrabbedDuringAuton() {
-        return RobotCanGrabbedDuringAuton;
-    }
-
-    public int getNumberOfCansGrabbedDuringAuton() {
-        return NumberOfCansGrabbedDuringAuton;
+    public void setAutonMode(String autonMode) {
+        AutonMode = autonMode;
     }
 
     public int getNumberOfAcquiredBinsInAuton() {
         return NumberOfAcquiredBinsInAuton;
     }
 
+    public void setNumberOfAcquiredBinsInAuton(int numberOfAcquiredBinsInAuton) {
+        NumberOfAcquiredBinsInAuton = numberOfAcquiredBinsInAuton;
+    }
+
     public int getNumberOfAutonFoulPoints() {
         return NumberOfAutonFoulPoints;
+    }
+
+    public void setNumberOfAutonFoulPoints(int numberOfAutonFoulPoints) {
+        NumberOfAutonFoulPoints = numberOfAutonFoulPoints;
+    }
+
+    public int getNumAutonCansAttemptedToBurgle() {
+        return NumAutonCansAttemptedToBurgle;
+    }
+
+    public void setNumAutonCansAttemptedToBurgle(int numAutonCansAttemptedToBurgle) {
+        NumAutonCansAttemptedToBurgle = numAutonCansAttemptedToBurgle;
+    }
+
+    public int getNumAutonCansBurgled() {
+        return NumAutonCansBurgled;
+    }
+
+    public void setNumAutonCansBurgled(int numAutonCansBurgled) {
+        NumAutonCansBurgled = numAutonCansBurgled;
+    }
+
+    public double getCanBurglingSpeed() {
+        return CanBurglingSpeed;
+    }
+
+    public void setCanBurglingSpeed(double canBurglingSpeed) {
+        CanBurglingSpeed = canBurglingSpeed;
     }
 
     public boolean isWasACOOPSetScoredInTeleop() {
         return WasACOOPSetScoredInTeleop;
     }
 
+    public void setWasACOOPSetScoredInTeleop(boolean wasACOOPSetScoredInTeleop) {
+        WasACOOPSetScoredInTeleop = wasACOOPSetScoredInTeleop;
+    }
+
     public boolean isWasACOOPStackScoredInTeleop() {
         return WasACOOPStackScoredInTeleop;
+    }
+
+    public void setWasACOOPStackScoredInTeleop(boolean wasACOOPStackScoredInTeleop) {
+        WasACOOPStackScoredInTeleop = wasACOOPStackScoredInTeleop;
+    }
+
+    public boolean isAreStacksDown() {
+        return AreStacksDown;
+    }
+
+    public void setAreStacksDown(boolean areStacksDown) {
+        AreStacksDown = areStacksDown;
+    }
+
+    public boolean isRobotWasPoorlyDriven() {
+        return RobotWasPoorlyDriven;
+    }
+
+    public void setRobotWasPoorlyDriven(boolean robotWasPoorlyDriven) {
+        RobotWasPoorlyDriven = robotWasPoorlyDriven;
+    }
+
+    public boolean isRobotDidCap() {
+        return RobotDidCap;
+    }
+
+    public void setRobotDidCap(boolean robotDidCap) {
+        RobotDidCap = robotDidCap;
+    }
+
+    public int getNumberOfCaps() {
+        return NumberOfCaps;
+    }
+
+    public void setNumberOfCaps(int numberOfCaps) {
+        NumberOfCaps = numberOfCaps;
     }
 
     public int getNumberOfStacksScoredInTeleop() {
         return NumberOfStacksScoredInTeleop;
     }
 
+    public void setNumberOfStacksScoredInTeleop(int numberOfStacksScoredInTeleop) {
+        NumberOfStacksScoredInTeleop = numberOfStacksScoredInTeleop;
+    }
+
+    public String getToteSource() {
+        return ToteSource;
+    }
+
+    public void setToteSource(String toteSource) {
+        ToteSource = toteSource;
+    }
+
     public List<RRStack> getStacks() {
         return Stacks;
+    }
+
+    public void setStacks(List<RRStack> stacks) {
+        Stacks = stacks;
     }
 
     public int getNumberOfTeleopFoulPoints() {
         return NumberOfTeleopFoulPoints;
     }
 
+    public void setNumberOfTeleopFoulPoints(int numberOfTeleopFoulPoints) {
+        NumberOfTeleopFoulPoints = numberOfTeleopFoulPoints;
+    }
+
     public int getThisRobotsAproxAutonScore() {
         return ThisRobotsAproxAutonScore;
+    }
+
+    public void setThisRobotsAproxAutonScore(int thisRobotsAproxAutonScore) {
+        ThisRobotsAproxAutonScore = thisRobotsAproxAutonScore;
     }
 
     public int getThisRobotsAproxTeleopScore() {
         return ThisRobotsAproxTeleopScore;
     }
 
+    public void setThisRobotsAproxTeleopScore(int thisRobotsAproxTeleopScore) {
+        ThisRobotsAproxTeleopScore = thisRobotsAproxTeleopScore;
+    }
+
     public int getThisRobotsAproxCOOPScore() {
         return ThisRobotsAproxCOOPScore;
     }
 
+    public void setThisRobotsAproxCOOPScore(int thisRobotsAproxCOOPScore) {
+        ThisRobotsAproxCOOPScore = thisRobotsAproxCOOPScore;
+    }
+
     public int getThisRobotsAproxTotalScore() {
         return ThisRobotsAproxTotalScore;
+    }
+
+    public void setThisRobotsAproxTotalScore(int thisRobotsAproxTotalScore) {
+        ThisRobotsAproxTotalScore = thisRobotsAproxTotalScore;
+    }
+
+    public int getTotalAllianceScore() {
+        return TotalAllianceScore;
+    }
+
+    public void setTotalAllianceScore(int totalAllianceScore) {
+        TotalAllianceScore = totalAllianceScore;
+    }
+
+    public String getComments() {
+        return Comments;
+    }
+
+    public void setComments(String comments) {
+        Comments = comments;
     }
 }

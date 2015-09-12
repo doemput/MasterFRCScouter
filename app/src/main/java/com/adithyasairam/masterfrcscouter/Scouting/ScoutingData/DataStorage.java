@@ -1,7 +1,5 @@
 package com.adithyasairam.masterfrcscouter.Scouting.ScoutingData;
 
-import android.content.ContentValues;
-
 import org.hammerhead226.masterfrcscouter.Utils.DataRW;
 import org.hammerhead226.masterfrcscouter.android.MainActivity;
 import org.supercsv.io.CsvBeanWriter;
@@ -24,7 +22,6 @@ public class DataStorage {
 
     public static void addMatch() {
         appendAMatchToCSVFile();
-        appendAMatchToSQLTable();
         appendAMatchToRealmDB();
     }
 
@@ -57,28 +54,6 @@ public class DataStorage {
         DataRW.addMapEntry("csvFile", MainActivity.csvFile);
     }
 
-    public static void appendAMatchToSQLTable() {
-        Match match = new Match();
-        ContentValues insertValues = new ContentValues();
-        try {
-            for (Field f : match.getClass().getFields()) {
-                f.setAccessible(true);
-                if (f.getName().equals("Stacks")) {
-                    List<RRStack> stacks = (List<RRStack>) f.get(null);
-                    for (int j = 0; j < stacks.size(); j++) {
-                        insertValues.put("Stack " + j, stacks.get(j).toString());
-                    }
-                } else {
-                    insertValues.put(f.getName(), f.get(null).toString());
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        //insertValues = match.setContentValues(insertValues);
-        MainActivity.database.insert("matches", null, insertValues);
-        //DataRW.addMapEntry("dbFile", new File(MainActivity.database.getPath()));
-    }
 
     public static void appendAMatchToRealmDB() {
         Realm realm = Realm.getDefaultInstance();

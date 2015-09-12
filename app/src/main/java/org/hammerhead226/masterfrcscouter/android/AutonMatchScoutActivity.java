@@ -6,40 +6,39 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ListView;
 
 import com.adithyasairam.Utils.Annotations.Changeable;
 import com.adithyasairam.masterfrcscouter.Scouting.ScoutingData.DataParsing;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Changeable(source = AutonMatchScoutActivity.class,
         when = Changeable.When.YEARLY, priority = Changeable.Priority.HIGH)
-public class AutonMatchScoutActivity extends AppCompatActivity implements View.OnClickListener{
+public class AutonMatchScoutActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
-    CheckBox driveToAutoZoneCB, roboSetCB, toteSetCB, stackedToteSetCB, binSetCB, didNothingCB, canBurgeledCB;
-    EditText cansGrabbed, acquiredStepBins, autoFouls;
+    EditText acquiredStepBins, autoFouls;
+    ListView autonListView;
     Button goToTeleop;
+
+    String autonSelection = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auton_match_scout);
-        driveToAutoZoneCB = (CheckBox)(findViewById(R.id.driveToAutoZoneBool));
-        driveToAutoZoneCB.setOnClickListener(this);
-        roboSetCB = (CheckBox)(findViewById(R.id.robotSetBool));
-        roboSetCB.setOnClickListener(this);
-        toteSetCB = (CheckBox)(findViewById(R.id.toteSetBool));
-        toteSetCB.setOnClickListener(this);
-        stackedToteSetCB = (CheckBox)(findViewById(R.id.stackedToteSetBool));
-        stackedToteSetCB.setOnClickListener(this);
-        binSetCB = (CheckBox)(findViewById(R.id.binSetBool));
-        binSetCB.setOnClickListener(this);
-        didNothingCB = (CheckBox)(findViewById(R.id.didNothingBool));
-        didNothingCB.setOnClickListener(this);
-        canBurgeledCB = (CheckBox)(findViewById(R.id.canBurgeledBool));
-        canBurgeledCB.setOnClickListener(this);
-        cansGrabbed = (EditText)(findViewById(R.id.numCansGrabbed));
+        autonListView = (ListView) findViewById(R.id.autonItems);
+        final List<String> values = Arrays.asList("Drove to Auto Zone",
+                "Set Scored", "Tote Set Scored", "Stacked Tote Set Scored", "Bin Set", "Can Burgled", "Did Nothing");
+        final ArrayAdapter adapter = new ArrayAdapter(this,
+                android.R.layout.simple_list_item_1, values);
+        autonListView.setAdapter(adapter);
+        autonListView.setOnItemClickListener(this);
         acquiredStepBins = (EditText)(findViewById(R.id.acquiredStepBins));
         autoFouls = (EditText)(findViewById(R.id.numAutoFouls));
         goToTeleop = (Button)(findViewById(R.id.goToTeleop));
@@ -63,11 +62,9 @@ public class AutonMatchScoutActivity extends AppCompatActivity implements View.O
         return true;
     }
 
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.canBurgeledBool:
-                cansGrabbed.setOnClickListener(this);
-                break;
             case R.id.goToTeleop:
                 parseData();
                 startActivity(new Intent(this, TeleopMatchScoutActivity.class));
@@ -75,19 +72,31 @@ public class AutonMatchScoutActivity extends AppCompatActivity implements View.O
         }
     }
 
+    //FIXME TEST
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+        String[] values = new String[]{"Drove to Auto Zone",
+                "Set Scored", "Tote Set Scored", "Stacked Tote Set Scored", "Bin Set", "Can Burgled", "Did Nothing"};
+        autonSelection = values[position]; //Shady
+        if (Arrays.asList(values).indexOf(autonSelection) == -1) {
+            throw new AssertionError();
+        }
+        if (autonSelection.equals("Can Burgled")) {
+            Intent intent = new Intent(this, CanBurgeledAutonActivity.class);
+            startActivityForResult(intent, RESULT_OK);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
     private void parseData() {
         try {
-            boolean dTA = driveToAutoZoneCB.isChecked();
-            boolean rS = roboSetCB.isChecked();
-            boolean tS = toteSetCB.isChecked();
-            boolean sTS = stackedToteSetCB.isChecked();
-            boolean bS = binSetCB.isChecked();
-            boolean dN = didNothingCB.isChecked();
-            boolean cG = canBurgeledCB.isChecked();
-            int cGN = Integer.parseInt(cansGrabbed.getText().toString());
             int aB = Integer.parseInt(acquiredStepBins.getText().toString());
             int aF = Integer.parseInt(autoFouls.getText().toString());
-            DataParsing.setAutonInfo(dTA, rS, tS, sTS, bS, dN, cG, cGN, aB, aF);
+            DataParsing.setAutonInfo(autonSelection, aB, aF);
         }
         catch (Exception e) { }
     }

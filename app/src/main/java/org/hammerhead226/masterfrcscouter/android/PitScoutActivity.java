@@ -9,6 +9,7 @@ import android.webkit.WebView;
 
 import org.hammerhead226.masterfrcscouter.Utils.Constants;
 
+//TODO: Change
 public class PitScoutActivity extends AppCompatActivity {
     WebView myWebView;
 

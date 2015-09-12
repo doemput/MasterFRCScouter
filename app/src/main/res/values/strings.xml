@@ -33,8 +33,7 @@
     <string name="title_activity_teleop_match_scout">Teleoperated</string>
     <string name="title_activity_auton_match_scout">Autonomous</string>
     <string name="redAllianceText">Red Alliance</string>
-    <string name="canBurgeledText">Can Burgeled?</string>
-    <string name="numCansGrabbedText">Num of Cans Grabbed</string>
+    <string name="numCansGrabbedText"># Cans Grabbed</string>
     <string name="didNothingText">Did Nothing?</string>
     <string name="acquiredStepBinsText">Acquired Step Bins</string>
     <string name="numAutoFoulsText">Auto Fouls</string>
@@ -55,4 +54,18 @@
     <string name="coopSetText">CO-OP Set?</string>
     <string name="coopStackText">CO-OP Stack?</string>
     <string name="commentsText">Comments: </string>
+    <string name="knockedOverStacksText">Stack(s) Knocked Over?</string>
+    <string name="robotWasPoorlyDrivenText">Robot Driven Poorly?</string>
+    <string name="allianceScoreText">Alliance Score</string>
+    <string name="title_activity_can_burgeled_auton">Can Auton</string>
+    <string name="cappedCansText">Capped Cans?</string>
+    <string name="numCansCappedText"># Cans Capped</string>
+    <string name="doneText">Done</string>
+    <string name="canBuglingSpeed">Speed</string>
+    <string name="numCansAttemptedText"># Attempted</string>
+    <string name="title_activity_match_scout_submit">Match Submit</string>
+    <string name="nextText">Next</string>
+    <string name="canSpeedInstructionsText">A decimal number from 0 to 1:</string>
+    <string name="totesFromHumanFeederText">Totes from Human Feeder</string>
+    <string name="totesFromLandfillText">Totes from Landfill</string>
 </resources>

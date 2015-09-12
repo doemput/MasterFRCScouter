@@ -1,7 +1,6 @@
 package org.hammerhead226.masterfrcscouter.android;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -30,7 +29,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     protected MyApplication app;
 
-    public static SQLiteDatabase database;
     public static File csvFile;
 
     Button matchScout, pitScout, info, TBABtn, importData, exportData, takeBreak, logOut;
@@ -42,9 +40,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Fabric.with(this, new Crashlytics(), new TwitterCore(authConfig), new Digits());
         instance = new Scouter();
         app = (MyApplication) getApplication();
-        database = app.initDB();
         csvFile = new File(Constants.getMatchDataDir(), "Matches.csv");
-        if (!csvFile.isFile()) throw new AssertionError();
+        if ((!csvFile.isFile()) && csvFile.isDirectory()) throw new AssertionError();
         setContentView(R.layout.activity_main);
         matchScout = (Button)(findViewById(R.id.matchScout));
         matchScout.setOnClickListener(this);

@@ -14,13 +14,17 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
-        android:name="org.hammerhead226.masterfrcscouter.android.MyApplication"
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="1ed35bd312c41111e97ba68eb810d5f712e60535" />
+
         <activity
-            android:name="org.hammerhead226.masterfrcscouter.android.LoginActivity"
+            android:name=".LoginActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,54 +32,55 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="1ed35bd312c41111e97ba68eb810d5f712e60535" />
-
         <activity
-            android:name="org.hammerhead226.masterfrcscouter.android.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="org.hammerhead226.masterfrcscouter.android.BreakTimeActivity"
+            android:name=".BreakTimeActivity"
             android:label="@string/title_activity_break_time" >
         </activity>
         <activity
-            android:name="org.hammerhead226.masterfrcscouter.android.MatchScoutActivity"
+            android:name=".MatchScoutActivity"
             android:label="@string/title_activity_match_scout" >
         </activity>
         <activity
-            android:name="org.hammerhead226.masterfrcscouter.android.PitScoutActivity"
+            android:name=".PitScoutActivity"
             android:label="@string/title_activity_pit_scout" >
         </activity>
         <activity
-            android:name="org.hammerhead226.masterfrcscouter.android.InfoActivity"
+            android:name=".InfoActivity"
             android:label="@string/title_activity_info" >
         </activity>
         <activity
-            android:name="org.hammerhead226.masterfrcscouter.android.TheBlueAllianceActivity"
+            android:name=".TheBlueAllianceActivity"
             android:label="@string/title_activity_the_blue_alliance" >
         </activity>
         <activity
-            android:name="org.hammerhead226.masterfrcscouter.android.ImportDataActivity"
+            android:name=".ImportDataActivity"
             android:label="@string/title_activity_import_data" >
         </activity>
         <activity
-            android:name="org.hammerhead226.masterfrcscouter.android.ExportDataActivity"
+            android:name=".ExportDataActivity"
             android:label="@string/title_activity_export_data" >
         </activity>
         <activity
-            android:name="org.hammerhead226.masterfrcscouter.android.SettingsActivity"
+            android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
         <activity
-            android:name="org.hammerhead226.masterfrcscouter.android.TeleopMatchScoutActivity"
+            android:name=".TeleopMatchScoutActivity"
             android:label="@string/title_activity_teleop_match_scout" >
         </activity>
         <activity
-            android:name="org.hammerhead226.masterfrcscouter.android.AutonMatchScoutActivity"
-            android:label="@string/title_activity_auton_match_scout" >
+            android:name=".AutonMatchScoutActivity"
+            android:label="@string/title_activity_auton_match_scout" ></activity>
+        <activity
+            android:name=".CanBurgeledAutonActivity"
+            android:label="@string/title_activity_can_burgeled_auton"></activity>
+        <activity
+            android:name=".MatchScoutSubmitActivity"
+            android:label="@string/title_activity_match_scout_submit">
         </activity>
     </application>
 
