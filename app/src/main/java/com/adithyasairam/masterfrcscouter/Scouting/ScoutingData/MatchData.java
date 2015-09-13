@@ -56,6 +56,46 @@ public class MatchData extends RealmObject {
     //Other
     private String Comments = DataParsing.comments;
 
+    public MatchData() {
+        //Basic:
+        MatchNumber = DataParsing.matchNumber;
+        ScouterName = DataParsing.scouterName;
+        TeamNumber = DataParsing.teamNumber;
+        ScoutingPosition = DataParsing.allianceColor + DataParsing.scoutingPosition;
+        RandomID = UUID.randomUUID().toString();
+
+        //Auton:
+        AutonMode = DataParsing.autonMode;
+        NumberOfAcquiredBinsInAuton = DataParsing.acquiredBins;
+        NumberOfAutonFoulPoints = DataParsing.autoFouls;
+
+        //Can Burgling Auton Only!!!
+        NumAutonCansAttemptedToBurgle = DataParsing.numAutonCansAttemptedToBurgle;
+        NumAutonCansBurgled = DataParsing.numAutonCansBurgled;
+        CanBurglingSpeed = DataParsing.canBurglingSpeed;
+
+        //Teleop:
+        WasACOOPSetScoredInTeleop = DataParsing.coopSet;
+        WasACOOPStackScoredInTeleop = DataParsing.coopStack;
+        AreStacksDown = DataParsing.stackDown;
+        RobotWasPoorlyDriven = DataParsing.badDriving;
+        RobotDidCap = DataParsing.didCap;
+        NumberOfCaps = DataParsing.numCansCapped;
+        NumberOfStacksScoredInTeleop = DataParsing.rrStackList.size();
+        ToteSource = DataParsing.toteSource;
+        NumberOfTeleopFoulPoints = DataParsing.numTeleFoulsPoints;
+
+        //Scoring:
+        ThisRobotsAproxAutonScore = DataParsing.calculateThisRobotsAproxAutonScore();
+        ThisRobotsAproxTeleopScore = DataParsing.calculateThisRobotsAproxTeleopScore();
+        ThisRobotsAproxCOOPScore = DataParsing.calculateThisRobotsAproxCoopScore();
+        ThisRobotsAproxTotalScore = DataParsing.calculateThisRobotsAproxTotalScore();
+        TotalAllianceScore = DataParsing.allianceScore;
+
+        //Other
+        Comments = DataParsing.comments;
+    }
+
     public int getMatchNumber() {
         return MatchNumber;
     }
