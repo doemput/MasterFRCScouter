@@ -63,10 +63,6 @@ public class DataParsing {
         comments = c;
     }
 
-    public static void saveMatch() {
-        DataStorage.addMatch();
-    }
-
     public static int calculateThisRobotsAproxAutonScore() {
         int score = 0;
         if (autonMode.equals("Set Scored")) {

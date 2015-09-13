@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.adithyasairam.masterfrcscouter.Scouting.ScoutingData.DataParsing;
+import com.adithyasairam.masterfrcscouter.Scouting.ScoutingData.DataStorage;
 
 public class MatchScoutSubmitActivity extends AppCompatActivity implements View.OnClickListener {
     Button submit;
@@ -47,7 +48,7 @@ public class MatchScoutSubmitActivity extends AppCompatActivity implements View.
             case R.id.nextBttn:
                 try {
                     parseData();
-                    DataParsing.saveMatch();
+                    DataStorage.addMatch(getApplicationContext());
                     startActivity(new Intent(this, MatchScoutActivity.class));
                     finish();
                     break;

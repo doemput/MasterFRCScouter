@@ -7,7 +7,6 @@ import java.util.UUID;
 
 import io.realm.RealmObject;
 import io.realm.annotations.Ignore;
-import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by Adi on 7/16/2015.
@@ -21,7 +20,7 @@ public class MatchData extends RealmObject {
     private int TeamNumber = DataParsing.teamNumber;
     //private String TeamName = TeamNumber + " - " + TBARequest.GetTeamInformation(("frc" + TeamNumber), false).name;
     private String ScoutingPosition = DataParsing.allianceColor + DataParsing.scoutingPosition;
-    @PrimaryKey
+    //@PrimaryKey
     private String RandomID = UUID.randomUUID().toString();
 
     //Auton:

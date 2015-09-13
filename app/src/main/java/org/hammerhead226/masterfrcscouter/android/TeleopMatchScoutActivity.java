@@ -30,7 +30,7 @@ public class TeleopMatchScoutActivity extends AppCompatActivity implements View.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        rrStackArrayList = new ArrayList<RRStack>();
+        rrStackArrayList = new ArrayList<RRStack>(5);
         setContentView(R.layout.activity_teleop_match_scout);
         numTeleFouls = (EditText)(findViewById(R.id.numTeleFoulsET));
         numCansCapped = (EditText) (findViewById(R.id.numCansCappedET));
