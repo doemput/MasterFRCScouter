@@ -4,3 +4,12 @@ The original version (1.0) was built in the three days leading up to the 2015 In
 
 Note: This app currently only supports scouting of the Recycle Rush IRI and Kettering Kickoff events. 
 Also, only Match Scouting is the only useable scouting menu.
+
+## TO-DO
+* Fix Realm.io/CSV Exporting
+* Fix Bugs
+* Refactor
+* Unit Tests
+* Material UI
+* Launch the app to the Play Store
+* Update the App and TBA API for 2016 and future games
