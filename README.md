@@ -8,7 +8,6 @@ Also, only Match Scouting is the only useable scouting menu.
 ## TO-DO
 * Fix Realm.io/CSV Exporting
 * Fix Bugs
-* Refactor
 * Unit Tests
 * Material UI
 * Launch the app to the Play Store
