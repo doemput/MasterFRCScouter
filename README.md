@@ -6,7 +6,7 @@ Note: This app currently only supports scouting of the Recycle Rush IRI and Kett
 Also, only Match Scouting is the only useable scouting menu.
 
 ## TO-DO
-* Fix Realm.io/CSV Exporting
+* Fix Realm.io exporting
 * Fix Bugs
 * Unit Tests
 * Material UI

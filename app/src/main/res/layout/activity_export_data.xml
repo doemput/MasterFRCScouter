@@ -11,6 +11,16 @@
         android:layout_height="wrap_content"
         android:text="@string/exportDataText"
         android:id="@+id/exportDataButton"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="71dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/goHome"
+        android:id="@+id/goHomeButtonDos"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="125dp" />
 </RelativeLayout>

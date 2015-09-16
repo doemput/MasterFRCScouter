@@ -68,4 +68,6 @@
     <string name="canSpeedInstructionsText">A decimal number from 0 to 1:</string>
     <string name="totesFromHumanFeederText">Totes from Human Feeder</string>
     <string name="totesFromLandfillText">Totes from Landfill</string>
+    <string name="autonSelectionText">Auton Selection:</string>
+    <string name="goHome">Go Home</string>
 </resources>

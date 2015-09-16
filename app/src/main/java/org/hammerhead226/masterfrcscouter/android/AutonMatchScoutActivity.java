@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.adithyasairam.Utils.Annotations.Changeable;
 import com.adithyasairam.masterfrcscouter.Scouting.ScoutingData.DataParsing;
@@ -23,10 +24,12 @@ import java.util.List;
 public class AutonMatchScoutActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     EditText acquiredStepBins, autoFouls;
+    TextView autonSelectionTV;
     ListView autonListView;
     Button goToTeleop;
 
     String autonSelection = "";
+    CharSequence origText = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,8 @@ public class AutonMatchScoutActivity extends AppCompatActivity implements View.O
         autonListView.setAdapter(adapter);
         autonListView.setOnItemClickListener(this);
         acquiredStepBins = (EditText)(findViewById(R.id.acquiredStepBins));
+        autonSelectionTV = (TextView) (findViewById(R.id.autonSelectionTV));
+        origText = autonSelectionTV.getText(); //don't change pls?
         autoFouls = (EditText)(findViewById(R.id.numAutoFouls));
         goToTeleop = (Button)(findViewById(R.id.goToTeleop));
         goToTeleop.setOnClickListener(this);
@@ -78,6 +83,7 @@ public class AutonMatchScoutActivity extends AppCompatActivity implements View.O
         String[] values = new String[]{"Drove to Auto Zone",
                 "Set Scored", "Tote Set Scored", "Stacked Tote Set Scored", "Bin Set", "Can Burgled", "Did Nothing"};
         autonSelection = values[position]; //Shady
+        updateAutonTVText();
         if (Arrays.asList(values).indexOf(autonSelection) == -1) {
             throw new AssertionError();
         }
@@ -99,5 +105,9 @@ public class AutonMatchScoutActivity extends AppCompatActivity implements View.O
             DataParsing.setAutonInfo(autonSelection, aB, aF);
         }
         catch (Exception e) { }
+    }
+
+    private void updateAutonTVText() {
+        autonSelectionTV.setText(origText + "\n" + autonSelection);
     }
 }

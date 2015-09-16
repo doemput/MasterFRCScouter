@@ -58,6 +58,47 @@ public class Match implements Comparable<Match> {
         } else return 0;
     }
 
+    public static void fieldReset() {
+        MatchNumber = DataParsing.matchNumber + 1;
+        ScouterName = DataParsing.scouterName;
+        TeamNumber = 0;
+        //TeamName = TeamNumber + " - " + TBARequest.GetTeamInformation(("frc" + TeamNumber), false).name;
+        ScoutingPosition = DataParsing.allianceColor + DataParsing.scoutingPosition;
+        RandomID = UUID.randomUUID().toString();
+
+        //Auton:
+        AutonMode = "";
+        NumberOfAcquiredBinsInAuton = 0;
+        NumberOfAutonFoulPoints = 0;
+
+        //Can Burgling Auton Only!!!
+        NumAutonCansAttemptedToBurgle = 0;
+        NumAutonCansBurgled = 0;
+        CanBurglingSpeed = 0;
+
+        //Teleop:
+        WasACOOPSetScoredInTeleop = false;
+        WasACOOPStackScoredInTeleop = false;
+        AreStacksDown = false;
+        RobotWasPoorlyDriven = false;
+        RobotDidCap = false;
+        NumberOfCaps = 0;
+        NumberOfStacksScoredInTeleop = 0;
+        ToteSource = "";
+        Stacks = null;
+        NumberOfTeleopFoulPoints = 0;
+
+        //Scoring:
+        ThisRobotsAproxAutonScore = 0;
+        ThisRobotsAproxTeleopScore = 0;
+        ThisRobotsAproxCOOPScore = 0;
+        ThisRobotsAproxTotalScore = 0;
+        TotalAllianceScore = 0;
+
+        //Other
+        Comments = "";
+    }
+
     public Match() {
         MatchNumber = DataParsing.matchNumber;
         ScouterName = DataParsing.scouterName;

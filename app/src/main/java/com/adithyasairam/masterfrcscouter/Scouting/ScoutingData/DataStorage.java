@@ -3,13 +3,16 @@ package com.adithyasairam.masterfrcscouter.Scouting.ScoutingData;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.adithyasairam.Utils.EzCSV.CSVWriter;
+import com.adithyasairam.Utils.EzIO.CSV.CSVWriter;
 import com.google.common.io.Files;
 
 import org.hammerhead226.masterfrcscouter.Utils.DataRW;
 import org.hammerhead226.masterfrcscouter.android.MainActivity;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.nio.charset.Charset;
+import java.util.Arrays;
 import java.util.List;
 
 import io.realm.Realm;
@@ -18,20 +21,37 @@ import io.realm.Realm;
  * Created by Adi on 8/30/2015.
  */
 public class DataStorage {
-    public static int writeCount = 0;
-
     public DataStorage() {
     }
 
     public static void addMatch(Context c) {
         appendAMatchToCSVFile();
         appendAMatchToRealmDB();
+        Match.fieldReset(); //FTA stuff
         Toast.makeText(c, "Match Saving Complete!", Toast.LENGTH_SHORT).show();
     }
 
     public static void appendAMatchToCSVFile() {
-        Match match = new Match();
-        String[] headers = new String[]{
+        CSVWriter csvWriter = new CSVWriter(MainActivity.csvFile);
+        try {
+            if (MainActivity.csvFile.length() < 0) {
+                csvWriter.writeArray(getHeaders());
+            }
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(MainActivity.csvFile));
+            String firstLine = bufferedReader.readLine();
+            String headers = Arrays.toString(getHeaders());
+            if ((firstLine == null) || (!(firstLine.equals(headers)))) {
+                csvWriter.writeArray(getHeaders());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        csvWriter.writeArray(getData());
+        DataRW.addMapEntry("csvFile", MainActivity.csvFile);
+    }
+
+    private static String[] getHeaders() {
+        return new String[]{
                 "MatchNumber",
                 "ScouterName",
                 "TeamNumber",
@@ -59,8 +79,11 @@ public class DataStorage {
                 "TotalAllianceScore",
                 "Comments"
         };
-        Match thisMatch = new Match();
-        String[] data = new String[]{
+    }
+
+    private static String[] getData() {
+        Match match = new Match();
+        return new String[]{
                 Integer.toString(Match.MatchNumber),
                 Match.ScouterName,
                 Integer.toString(Match.TeamNumber),
@@ -88,14 +111,6 @@ public class DataStorage {
                 Integer.toString(Match.TotalAllianceScore),
                 Match.Comments
         };
-        CSVWriter csvWriter = new CSVWriter(MainActivity.csvFile);
-        if (writeCount < 1) {
-            csvWriter.writeHeaders(headers);
-            writeCount++;
-        }
-        csvWriter.write(data);
-        writeCount++;
-        DataRW.addMapEntry("csvFile", MainActivity.csvFile);
     }
 
     public static void appendAMatchToRealmDB() {

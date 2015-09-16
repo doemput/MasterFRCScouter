@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public static File csvFile;
 
-    Button matchScout, pitScout, info, TBABtn, importData, exportData, takeBreak, logOut;
+    Button matchScout, pitScout, info, TBABtn, exportData, logOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +51,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //info.setOnClickListener(this);
         TBABtn = (Button) (findViewById(R.id.TBAbtn));
         //TBABtn.setOnClickListener(this);
-        importData = (Button) (findViewById(R.id.dataImport));
-        //importData.setOnClickListener(this);
         exportData = (Button) (findViewById(R.id.dataExport));
         exportData.setOnClickListener(this);
-        takeBreak = (Button)(findViewById(R.id.takeBreak));
-        takeBreak.setOnClickListener(this);
         logOut = (Button)(findViewById(R.id.logOut));
         logOut.setOnClickListener(this);
     }
@@ -92,15 +88,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.TBAbtn:
                 startActivity(new Intent(this, TheBlueAllianceActivity.class));
                 break;
-            case R.id.dataImport:
-                startActivity(new Intent(this, ImportDataActivity.class));
-                break;
             case R.id.dataExport:
                 startActivity(new Intent(this, ExportDataActivity.class));
-                break;
-            case R.id.takeBreak:
-                instance.startABreak();
-                startActivity(new Intent(this, BreakTimeActivity.class));
                 break;
             case (R.id.logOut):
                 instance.endSession();

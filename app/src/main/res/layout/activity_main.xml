@@ -35,9 +35,9 @@
         android:id="@+id/info"
         android:enabled="true"
         android:clickable="true"
-        android:layout_marginTop="47dp"
+        android:layout_marginTop="107dp"
         android:layout_below="@+id/matchScout"
-        android:layout_alignParentStart="false" />
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -55,43 +55,12 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/importData"
-        android:id="@+id/dataImport"
-        android:enabled="true"
-        android:clickable="true"
-        android:layout_alignTop="@+id/dataExport"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="@string/exportData"
         android:id="@+id/dataExport"
         android:enabled="true"
         android:clickable="true"
-        android:layout_below="@+id/TBAbtn"
-        android:layout_alignEnd="@+id/TBAbtn"
-        android:layout_marginTop="51dp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/takeABreak"
-        android:id="@+id/takeBreak"
-        android:enabled="true"
-        android:clickable="true"
-        android:layout_below="@+id/dataImport"
-        android:layout_marginTop="59dp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/logOutText"
-        android:id="@+id/logOut"
-        android:enabled="true"
-        android:clickable="true"
-        android:layout_alignBottom="@+id/takeBreak"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignTop="@+id/logOut"
+        android:layout_alignEnd="@+id/matchScout" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -103,5 +72,15 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/logOutText"
+        android:id="@+id/logOut"
+        android:enabled="true"
+        android:clickable="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/pitScout" />
 
 </RelativeLayout>

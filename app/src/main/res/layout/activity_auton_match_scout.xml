@@ -13,7 +13,7 @@
         android:id="@+id/autonItems"
         android:layout_alignParentTop="true"
         android:layout_toStartOf="@+id/acquiredStepBins"
-        android:layout_above="@+id/goToTeleop" />
+        android:layout_above="@+id/autonSelectionTV" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -46,6 +46,18 @@
         android:id="@+id/goToTeleop"
         android:text="@string/teleopText"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/autonSelectionText"
+        android:id="@+id/autonSelectionTV"
+        android:elegantTextHeight="false"
+        android:lines="2"
+        android:layout_marginBottom="30dp"
+        android:layout_above="@+id/goToTeleop"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

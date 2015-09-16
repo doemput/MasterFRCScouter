@@ -33,6 +33,15 @@
         android:layout_height="wrap_content"
         android:text="@string/autonomous"
         android:id="@+id/autonButton"
+        android:layout_marginBottom="109dp"
+        android:layout_above="@+id/goHomeButton"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/goHome"
+        android:id="@+id/goHomeButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 

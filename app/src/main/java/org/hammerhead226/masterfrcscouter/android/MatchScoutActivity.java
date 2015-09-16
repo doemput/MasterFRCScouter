@@ -16,7 +16,7 @@ import com.adithyasairam.masterfrcscouter.Scouting.ScoutingData.DataParsing;
         when = Changeable.When.YEARLY, priority = Changeable.Priority.HIGH)
 public class MatchScoutActivity extends AppCompatActivity implements View.OnClickListener{
 
-    Button autonButton;
+    Button autonButton, goHomeButton;
     EditText teamNumberET, matchNumberET;
 
     @Override
@@ -25,6 +25,8 @@ public class MatchScoutActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_match_scout);
         autonButton = (Button)(findViewById(R.id.autonButton));
         autonButton.setOnClickListener(this);
+        goHomeButton = (Button) (findViewById(R.id.goHomeButton));
+        goHomeButton.setOnClickListener(this);
         teamNumberET = (EditText)(findViewById(R.id.teamNumberET));
         matchNumberET = (EditText)(findViewById(R.id.matchNumberET));
     }
@@ -48,6 +50,9 @@ public class MatchScoutActivity extends AppCompatActivity implements View.OnClic
 
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.goHomeButton:
+                startActivity(new Intent(this, MainActivity.class));
+                break;
             case R.id.autonButton:
                 parseData();
                 startActivity(new Intent(this, AutonMatchScoutActivity.class));

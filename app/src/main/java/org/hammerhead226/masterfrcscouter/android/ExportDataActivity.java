@@ -1,10 +1,8 @@
 package org.hammerhead226.masterfrcscouter.android;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,7 +23,7 @@ import io.realm.Realm;
 public class ExportDataActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final String TAG = "ExportDataActivity";
-    Button exportData;
+    Button exportData, mainMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +31,8 @@ public class ExportDataActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_export_data);
         exportData = (Button)(findViewById(R.id.exportDataButton));
         exportData.setOnClickListener(this);
+        mainMenu = (Button) (findViewById(R.id.goHomeButtonDos));
+        mainMenu.setOnClickListener(this);
     }
 
     @Override
@@ -48,6 +48,9 @@ public class ExportDataActivity extends AppCompatActivity implements View.OnClic
             case R.id.menu_settings:
                 startActivity(new Intent(this, SettingsActivity.class));
                 break;
+            case R.id.goHomeButtonDos:
+                startActivity(new Intent(this, MainActivity.class));
+                break;
         }
         return true;
     }
@@ -57,16 +60,14 @@ public class ExportDataActivity extends AppCompatActivity implements View.OnClic
         switch (v.getId()) {
             case R.id.exportDataButton:
                 sendEmail(getFilesToSend());
-                startActivity(new Intent(this, MainActivity.class));
                 break;
         }
     }
 
     public List<File> getFilesToSend() {
-        addRealmFile();
-        File files = new File(Environment.getExternalStorageDirectory() + "/MasterFRCScouter" + "/MatchData");
-        List<File> fileList = Arrays.asList(files.listFiles());
-        return fileList;
+        //addRealmFile();
+        File files = Constants.getMatchDataDir();
+        return Arrays.asList(files.listFiles());
     }
 
     private void addRealmFile() {
@@ -85,17 +86,17 @@ public class ExportDataActivity extends AppCompatActivity implements View.OnClic
     //FIXME: Test!!!
     public void sendEmail(List<File> filesToAttach) {
         try {
-            SharedPreferences prefs = getPreferences(0);
-            Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
-            intent.setType("text/plain");
+            String email = P.email.get();
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            //intent.setType("text/plain");
+            intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+            intent.putExtra(Intent.EXTRA_EMAIL, new String[]{email}); // recipients
             for (File f : filesToAttach) {
-                Uri u = Uri.fromFile(f);
-                intent.putExtra(Intent.EXTRA_STREAM, u);
+                intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(f));
             }
-            intent.putExtra(Intent.EXTRA_EMAIL, "Exported Scouting Data");
             intent.putExtra(Intent.EXTRA_SUBJECT, Scouter.scouterName + "'s scouting data");
-            intent.putExtra(Intent.EXTRA_TEXT, "Data From: " + prefs.getString("event_sel", "Some FRC Event"));
-            startActivity(Intent.createChooser(intent, "Export Data via Email"));
+            startActivity(intent);
+            //startActivity(Intent.createChooser(intent, "Send email"));
         }
         catch (Exception e) {
             e.printStackTrace();
