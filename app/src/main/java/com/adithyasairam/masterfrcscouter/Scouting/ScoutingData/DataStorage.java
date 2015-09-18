@@ -4,16 +4,9 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.adithyasairam.Utils.EzIO.CSV.CSVWriter;
-import com.google.common.io.Files;
 
 import org.hammerhead226.masterfrcscouter.Utils.DataRW;
 import org.hammerhead226.masterfrcscouter.android.MainActivity;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.nio.charset.Charset;
-import java.util.Arrays;
-import java.util.List;
 
 import io.realm.Realm;
 
@@ -33,20 +26,11 @@ public class DataStorage {
 
     public static void appendAMatchToCSVFile() {
         CSVWriter csvWriter = new CSVWriter(MainActivity.csvFile);
-        try {
-            if (MainActivity.csvFile.length() < 0) {
-                csvWriter.writeArray(getHeaders());
-            }
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(MainActivity.csvFile));
-            String firstLine = bufferedReader.readLine();
-            String headers = Arrays.toString(getHeaders());
-            if ((firstLine == null) || (!(firstLine.equals(headers)))) {
-                csvWriter.writeArray(getHeaders());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (MainActivity.csvFile.length() <= 1) {
+            csvWriter.writeArray(getHeaders());
         }
         csvWriter.writeArray(getData());
+        csvWriter.closeStream();
         DataRW.addMapEntry("csvFile", MainActivity.csvFile);
     }
 
@@ -118,16 +102,5 @@ public class DataStorage {
         realm.beginTransaction();
         MatchData matchData = realm.createObject(MatchData.class);
         realm.commitTransaction();
-    }
-
-    private static void debugRead() {
-        try {
-            List<String> lines = Files.readLines(MainActivity.csvFile, Charset.defaultCharset());
-            for (String s : lines) {
-                System.out.println(s);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

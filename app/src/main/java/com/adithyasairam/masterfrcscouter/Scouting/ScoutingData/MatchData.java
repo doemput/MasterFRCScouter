@@ -37,7 +37,6 @@ public class MatchData extends RealmObject {
     private boolean WasACOOPSetScoredInTeleop = DataParsing.coopSet;
     private boolean WasACOOPStackScoredInTeleop = DataParsing.coopStack;
     private boolean AreStacksDown = DataParsing.stackDown;
-    private boolean RobotWasPoorlyDriven = DataParsing.badDriving;
     private boolean RobotDidCap = DataParsing.didCap;
     private int NumberOfCaps = DataParsing.numCansCapped;
     private int NumberOfStacksScoredInTeleop = DataParsing.rrStackList.size();
@@ -55,6 +54,7 @@ public class MatchData extends RealmObject {
 
     //Other
     private String Comments = DataParsing.comments;
+    private boolean RobotWasPoorlyDriven = DataParsing.badDriving;
 
     public MatchData() {
         //Basic:
@@ -78,7 +78,6 @@ public class MatchData extends RealmObject {
         WasACOOPSetScoredInTeleop = DataParsing.coopSet;
         WasACOOPStackScoredInTeleop = DataParsing.coopStack;
         AreStacksDown = DataParsing.stackDown;
-        RobotWasPoorlyDriven = DataParsing.badDriving;
         RobotDidCap = DataParsing.didCap;
         NumberOfCaps = DataParsing.numCansCapped;
         NumberOfStacksScoredInTeleop = DataParsing.rrStackList.size();
@@ -94,6 +93,7 @@ public class MatchData extends RealmObject {
 
         //Other
         Comments = DataParsing.comments;
+        RobotWasPoorlyDriven = false;
     }
 
     public int getMatchNumber() {

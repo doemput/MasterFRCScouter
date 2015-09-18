@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         instance = new Scouter();
         app = (MyApplication) getApplication();
         csvFile = new File(Constants.getMatchDataDir(), "Matches.csv");
-        if ((!csvFile.isFile()) && csvFile.isDirectory()) throw new AssertionError();
         setContentView(R.layout.activity_main);
         matchScout = (Button)(findViewById(R.id.matchScout));
         matchScout.setOnClickListener(this);

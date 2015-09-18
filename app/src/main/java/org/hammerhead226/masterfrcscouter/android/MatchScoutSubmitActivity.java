@@ -7,6 +7,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.adithyasairam.masterfrcscouter.Scouting.ScoutingData.DataParsing;
@@ -14,6 +16,8 @@ import com.adithyasairam.masterfrcscouter.Scouting.ScoutingData.DataStorage;
 
 public class MatchScoutSubmitActivity extends AppCompatActivity implements View.OnClickListener {
     Button submit;
+    Switch poorlyDrivenRobot;
+    EditText allianceScore;
     TextView comments;
 
     @Override
@@ -23,6 +27,8 @@ public class MatchScoutSubmitActivity extends AppCompatActivity implements View.
         submit = (Button) (findViewById(R.id.nextBttn));
         submit.setOnClickListener(this);
         comments = (TextView) (findViewById(R.id.commentsTextArea));
+        allianceScore = (EditText) (findViewById(R.id.allianceSelectionET));
+        poorlyDrivenRobot = (Switch) (findViewById(R.id.badDrivingSwitch));
     }
 
     @Override
@@ -60,7 +66,10 @@ public class MatchScoutSubmitActivity extends AppCompatActivity implements View.
 
     private void parseData() {
         try {
-            DataParsing.setExtraInfo(comments.getText().toString());
+            String commentsText = comments.getText().toString();
+            int aScore = Integer.parseInt(allianceScore.getText().toString());
+            boolean badDriving = poorlyDrivenRobot.isChecked();
+            DataParsing.setExtraInfo(commentsText, aScore, badDriving);
         } catch (Exception e) {
         }
     }

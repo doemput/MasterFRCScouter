@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.adithyasairam.masterfrcscouter.Scouting.Scouter;
+import com.google.common.io.Files;
 
 import org.hammerhead226.masterfrcscouter.Utils.Constants;
 
@@ -48,9 +49,6 @@ public class ExportDataActivity extends AppCompatActivity implements View.OnClic
             case R.id.menu_settings:
                 startActivity(new Intent(this, SettingsActivity.class));
                 break;
-            case R.id.goHomeButtonDos:
-                startActivity(new Intent(this, MainActivity.class));
-                break;
         }
         return true;
     }
@@ -60,6 +58,10 @@ public class ExportDataActivity extends AppCompatActivity implements View.OnClic
         switch (v.getId()) {
             case R.id.exportDataButton:
                 sendEmail(getFilesToSend());
+                break;
+            case R.id.goHomeButtonDos:
+                backupFile();
+                startActivity(new Intent(this, MainActivity.class));
                 break;
         }
     }
@@ -88,7 +90,6 @@ public class ExportDataActivity extends AppCompatActivity implements View.OnClic
         try {
             String email = P.email.get();
             Intent intent = new Intent(Intent.ACTION_SENDTO);
-            //intent.setType("text/plain");
             intent.setData(Uri.parse("mailto:")); // only email apps should handle this
             intent.putExtra(Intent.EXTRA_EMAIL, new String[]{email}); // recipients
             for (File f : filesToAttach) {
@@ -96,9 +97,20 @@ public class ExportDataActivity extends AppCompatActivity implements View.OnClic
             }
             intent.putExtra(Intent.EXTRA_SUBJECT, Scouter.scouterName + "'s scouting data");
             startActivity(intent);
-            //startActivity(Intent.createChooser(intent, "Send email"));
         }
         catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void backupFile() {
+        try {
+            long millis = System.currentTimeMillis();
+            File backupFile = new File(Constants.getMatchDataBackupDir(), "Matches-" + millis + ".csv");
+            Files.move(MainActivity.csvFile, backupFile);
+            MainActivity.csvFile.delete(); //Delete old CSV file
+            MainActivity.csvFile = new File(Constants.getMatchDataDir(), "Matches.csv"); //Init new CSV file
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

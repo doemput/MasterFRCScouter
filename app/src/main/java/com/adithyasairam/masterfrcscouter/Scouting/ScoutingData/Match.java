@@ -32,7 +32,6 @@ public class Match implements Comparable<Match> {
     public static boolean WasACOOPSetScoredInTeleop;
     public static boolean WasACOOPStackScoredInTeleop;
     public static boolean AreStacksDown;
-    public static boolean RobotWasPoorlyDriven;
     public static boolean RobotDidCap;
     public static int NumberOfCaps;
     public static int NumberOfStacksScoredInTeleop;
@@ -48,6 +47,7 @@ public class Match implements Comparable<Match> {
     public static int TotalAllianceScore;
 
     //Other
+    public static boolean RobotWasPoorlyDriven;
     public static String Comments;
 
     public int compareTo(Match other) {
@@ -80,7 +80,6 @@ public class Match implements Comparable<Match> {
         WasACOOPSetScoredInTeleop = false;
         WasACOOPStackScoredInTeleop = false;
         AreStacksDown = false;
-        RobotWasPoorlyDriven = false;
         RobotDidCap = false;
         NumberOfCaps = 0;
         NumberOfStacksScoredInTeleop = 0;
@@ -97,6 +96,7 @@ public class Match implements Comparable<Match> {
 
         //Other
         Comments = "";
+        RobotWasPoorlyDriven = false;
     }
 
     public Match() {
@@ -121,7 +121,6 @@ public class Match implements Comparable<Match> {
         WasACOOPSetScoredInTeleop = DataParsing.coopSet;
         WasACOOPStackScoredInTeleop = DataParsing.coopStack;
         AreStacksDown = DataParsing.stackDown;
-        RobotWasPoorlyDriven = DataParsing.badDriving;
         RobotDidCap = DataParsing.didCap;
         NumberOfCaps = DataParsing.numCansCapped;
         NumberOfStacksScoredInTeleop = DataParsing.rrStackList.size();
@@ -138,5 +137,6 @@ public class Match implements Comparable<Match> {
 
         //Other
         Comments = DataParsing.comments;
+        RobotWasPoorlyDriven = false;
     }
 }

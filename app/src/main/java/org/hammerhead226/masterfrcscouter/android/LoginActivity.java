@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.adithyasairam.masterfrcscouter.Scouting.Scouter;
 import com.crashlytics.android.Crashlytics;
@@ -68,20 +69,29 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.rACheckbox:
-                if ((rA.isChecked() && bA.isChecked())) throw new AssertionError();
+                if ((rA.isChecked() && bA.isChecked())) {
+                    Toast.makeText(getApplicationContext(), "You have selected to scout both the Red and Blue Alliance.!", Toast.LENGTH_SHORT).show();
+                    break;
+                }
                 isRedScouter = true;
                 rA.setActivated(true);
                 bA.setActivated(false);
                 break;
             case R.id.bACheckbox:
-                if ((rA.isChecked() && bA.isChecked())) throw new AssertionError();
+                if ((rA.isChecked() && bA.isChecked())) {
+                    Toast.makeText(getApplicationContext(), "You have selected to scout both the Red and Blue Alliance.!", Toast.LENGTH_SHORT).show();
+                    break;
+                }
                 isRedScouter = false;
                 bA.setActivated(true);
                 rA.setActivated(false);
                 break;
             case R.id.bLogin:
                 try {
-                    if ((rA.isChecked() && bA.isChecked())) throw new AssertionError();
+                    if ((rA.isChecked() && bA.isChecked())) {
+                        Toast.makeText(getApplicationContext(), "You have selected to scout both the Red and Blue Alliance!", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
                     scouterName = Name.getText().toString();
                     scoutingPosition = Integer.parseInt(Position.getText().toString());
                     Log.i(TAG, "Login complete.");

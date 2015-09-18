@@ -20,11 +20,12 @@ public class DataParsing {
     public static int numAutonCansAttemptedToBurgle, numAutonCansBurgled; //Can Burgling Auton Only!!!
     public static double canBurglingSpeed; //Can Burgling Auton Only!!!
     public static int numTeleFoulsPoints, numCansCapped; //Teleop Info
-    public static boolean coopSet, coopStack, stackDown, badDriving, didCap; //Teleop Info
+    public static boolean coopSet, coopStack, stackDown, didCap; //Teleop Info
     public static String toteSource; //Teleop Info
     public static List<RRStack> rrStackList; //Teleop Info
     public static String comments; //Extra Info
-    public static int allianceScore; //Scoring Info
+    public static int allianceScore; //Extra Info
+    public static boolean badDriving; //Extra Info
 
     public static void setBasicInfo(int tN, int mN) {
         teamNumber = tN;
@@ -46,21 +47,21 @@ public class DataParsing {
         canBurglingSpeed = s;
     }
 
-    public static void setTeleopInfo(int nTFP, int nCC, int aS, boolean cSet, boolean cStack, boolean sD, boolean bD, boolean dC, String tS, List<RRStack> rSL) {
+    public static void setTeleopInfo(int nTFP, int nCC, boolean cSet, boolean cStack, boolean sD, boolean dC, String tS, List<RRStack> rSL) {
         numTeleFoulsPoints = nTFP;
         numCansCapped = nCC;
-        allianceScore = aS;
         coopSet = cSet;
         coopStack = cStack;
         stackDown = sD;
-        badDriving = bD;
         didCap = dC;
         toteSource = tS;
         rrStackList = rSL;
     }
 
-    public static void setExtraInfo(String c) {
+    public static void setExtraInfo(String c, int aS, boolean bD) {
         comments = c;
+        allianceScore = aS;
+        badDriving = bD;
     }
 
     public static int calculateThisRobotsAproxAutonScore() {

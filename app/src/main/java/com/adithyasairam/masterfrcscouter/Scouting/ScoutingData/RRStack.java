@@ -2,7 +2,6 @@ package com.adithyasairam.masterfrcscouter.Scouting.ScoutingData;
 
 import com.adithyasairam.Utils.Annotations.Changeable;
 
-
 /**
  * Created by Adi on 7/14/2015.
  */

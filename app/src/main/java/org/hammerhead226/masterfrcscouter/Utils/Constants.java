@@ -26,6 +26,13 @@ public class Constants {
         return matchDir;
     }
 
+    public static File getMatchDataBackupDir() {
+        File appDir = getAppDir();
+        File matchDir = new File(appDir.getAbsolutePath() + "/MatchDataBackup");
+        matchDir.mkdirs();
+        return matchDir;
+    }
+
     public static File getObjectDataDir() {
         File appDir = getAppDir();
         File objectDir = new File(appDir.getAbsolutePath() + "/ObjectData");

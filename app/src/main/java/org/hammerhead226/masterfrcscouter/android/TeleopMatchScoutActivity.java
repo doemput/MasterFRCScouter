@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import com.adithyasairam.Utils.Annotations.Changeable;
 import com.adithyasairam.masterfrcscouter.Scouting.ScoutingData.DataParsing;
@@ -22,8 +23,8 @@ import java.util.ArrayList;
 public class TeleopMatchScoutActivity extends AppCompatActivity implements View.OnClickListener{
 
     Button stackSubmit, nextButton;
-    EditText numTeleFouls, stackHeight, numCansCapped, allianceScore;
-    Switch coopSet, coopStack, knockedOverStacks, poorlyDrivenRobot, didCapCans;
+    EditText numTeleFouls, stackHeight, numCansCapped;
+    Switch coopSet, coopStack, knockedOverStacks, didCapCans;
     CheckBox canOnTopWithLitter, canOnTop, totesFromHF, totesFromLF;
     public static ArrayList<RRStack> rrStackArrayList;
 
@@ -34,13 +35,11 @@ public class TeleopMatchScoutActivity extends AppCompatActivity implements View.
         setContentView(R.layout.activity_teleop_match_scout);
         numTeleFouls = (EditText)(findViewById(R.id.numTeleFoulsET));
         numCansCapped = (EditText) (findViewById(R.id.numCansCappedET));
-        allianceScore = (EditText) (findViewById(R.id.allianceScoreET));
         canOnTopWithLitter = (CheckBox)(findViewById(R.id.canOnTopWithLitterCB));
         canOnTop = (CheckBox)(findViewById(R.id.canOnTopCB));
         coopSet = (Switch)(findViewById(R.id.coopSetSwitch));
         coopStack = (Switch)(findViewById(R.id.coopStackSwitch));
         knockedOverStacks = (Switch) (findViewById(R.id.knockedStackSwitch));
-        poorlyDrivenRobot = (Switch) (findViewById(R.id.badDrivingSwitch));
         didCapCans = (Switch) (findViewById(R.id.canCappedSwitch));
         stackHeight = (EditText)(findViewById(R.id.stackHeightET));
         stackSubmit = (Button)(findViewById(R.id.submitStack));
@@ -75,6 +74,10 @@ public class TeleopMatchScoutActivity extends AppCompatActivity implements View.
                     int sH = Integer.parseInt(stackHeight.getText().toString());
                     boolean cOTWL = canOnTopWithLitter.isChecked();
                     boolean cOT = canOnTop.isChecked();
+                    if (cOTWL && cOT) {
+                        Toast.makeText(getApplicationContext(), "You have checked that the Stack has both a Can on Top and a Can on Top with Litter", Toast.LENGTH_SHORT).show();
+                        break;
+                    }
                     rrStackArrayList.add(new RRStack(sH, cOTWL, cOT));
                     stackHeight.setText("");
                     canOnTopWithLitter.setChecked(false);
@@ -97,14 +100,12 @@ public class TeleopMatchScoutActivity extends AppCompatActivity implements View.
         try {
             int nTF = Integer.parseInt(numTeleFouls.getText().toString());
             int nCC = Integer.parseInt(numCansCapped.getText().toString());
-            int aScore = Integer.parseInt(allianceScore.getText().toString());
             boolean cSet = coopSet.isChecked();
             boolean cStack = coopStack.isChecked();
             boolean stackDown = knockedOverStacks.isChecked();
-            boolean badDriving = poorlyDrivenRobot.isChecked();
             boolean didCap = didCapCans.isChecked();
             String toteSource = getToteSource();
-            DataParsing.setTeleopInfo(nTF, nCC, aScore, cSet, cStack, stackDown, badDriving, didCap, toteSource, rrStackArrayList);
+            DataParsing.setTeleopInfo(nTF, nCC, cSet, cStack, stackDown, didCap, toteSource, rrStackArrayList);
         }
         catch (Exception e) { }
     }

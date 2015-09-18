@@ -85,11 +85,15 @@ public class AutonMatchScoutActivity extends AppCompatActivity implements View.O
         autonSelection = values[position]; //Shady
         updateAutonTVText();
         if (Arrays.asList(values).indexOf(autonSelection) == -1) {
-            throw new AssertionError();
+            ///WTF this should never happen
         }
         if (autonSelection.equals("Can Burgled")) {
+            setBlank();
             Intent intent = new Intent(this, CanBurgeledAutonActivity.class);
             startActivityForResult(intent, RESULT_OK);
+        }
+        if (autonSelection.equals("Did Nothing")) {
+            setBlank();
         }
     }
 
@@ -109,5 +113,10 @@ public class AutonMatchScoutActivity extends AppCompatActivity implements View.O
 
     private void updateAutonTVText() {
         autonSelectionTV.setText(origText + "\n" + autonSelection);
+    }
+
+    private void setBlank() {
+        acquiredStepBins.setText("0");
+        autoFouls.setText("0");
     }
 }

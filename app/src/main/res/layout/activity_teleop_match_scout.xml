@@ -96,29 +96,27 @@
             android:id="@+id/miscFrameLayout">
 
             <Switch
-                android:layout_width="106dp"
-                android:layout_height="69dp"
-                android:text="@string/knockedOverStacksText"
-                android:id="@+id/knockedStackSwitch"
-                android:layout_gravity="left|top"
-                android:singleLine="false"
-                android:lines="3" />
-
-            <Switch
-                android:layout_width="wrap_content"
-                android:layout_height="45dp"
+                android:layout_width="150dp"
+                android:layout_height="56dp"
                 android:text="@string/coopSetText"
                 android:id="@+id/coopSetSwitch"
-                android:layout_gravity="left|center_vertical" />
+                android:layout_gravity="left|top" />
 
-            <EditText
-                android:layout_width="129dp"
+            <Switch
+                android:layout_width="150dp"
                 android:layout_height="56dp"
-                android:inputType="number"
-                android:ems="10"
-                android:id="@+id/allianceScoreET"
+                android:text="@string/coopStackText"
+                android:id="@+id/coopStackSwitch"
+                android:layout_gravity="right|top" />
+
+            <Switch
+                android:layout_width="210dp"
+                android:layout_height="70dp"
+                android:text="@string/knockedOverStacksText"
+                android:id="@+id/knockedStackSwitch"
                 android:layout_gravity="left|bottom"
-                android:hint="@string/allianceScoreText" />
+                android:singleLine="false"
+                android:lines="3" />
 
             <EditText
                 android:layout_width="105dp"
@@ -128,20 +126,6 @@
                 android:id="@+id/numTeleFoulsET"
                 android:layout_gravity="right|bottom"
                 android:hint="@string/numTeleFoulsText" />
-
-            <Switch
-                android:layout_width="111dp"
-                android:layout_height="43dp"
-                android:text="@string/coopStackText"
-                android:id="@+id/coopStackSwitch"
-                android:layout_gravity="right|center_vertical" />
-
-            <Switch
-                android:layout_width="112dp"
-                android:layout_height="62dp"
-                android:text="@string/robotWasPoorlyDrivenText"
-                android:id="@+id/badDrivingSwitch"
-                android:layout_gravity="right|top" />
 
         </FrameLayout>
 
