@@ -30,7 +30,7 @@ public class CanBurgeledAutonActivity extends AppCompatActivity implements View.
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_can_burgeled_auton, menu);
+        //getMenuInflater().inflate(R.menu.menu_can_burgeled_auton, menu);
         return true;
     }
 

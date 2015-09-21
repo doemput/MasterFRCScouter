@@ -15,8 +15,10 @@
         android:ems="6"
         android:id="@+id/teamNumberET"
         android:hint="@string/teamNumberText"
+        android:gravity="center"
+        android:layout_marginTop="99dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignStart="@+id/matchNumberET" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -25,24 +27,18 @@
         android:ems="6"
         android:id="@+id/matchNumberET"
         android:hint="@string/matchNumberText"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
+        android:gravity="center"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/autonButton" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/autonomous"
         android:id="@+id/autonButton"
-        android:layout_marginBottom="109dp"
-        android:layout_above="@+id/goHomeButton"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/goHome"
-        android:id="@+id/goHomeButton"
+        android:layout_marginBottom="85dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
+
 
 </RelativeLayout>

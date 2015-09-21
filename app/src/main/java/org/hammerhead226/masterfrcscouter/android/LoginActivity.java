@@ -1,6 +1,7 @@
 package org.hammerhead226.masterfrcscouter.android;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -73,6 +74,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Toast.makeText(getApplicationContext(), "You have selected to scout both the Red and Blue Alliance.!", Toast.LENGTH_SHORT).show();
                     break;
                 }
+                //sets the color to red if they select the red checkbox
+                if(rA.isChecked()){
+                    bLogin.setBackgroundColor(Color.parseColor("#F44336"));
+                }else{
+                    bLogin.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                }
                 isRedScouter = true;
                 rA.setActivated(true);
                 bA.setActivated(false);
@@ -81,6 +88,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if ((rA.isChecked() && bA.isChecked())) {
                     Toast.makeText(getApplicationContext(), "You have selected to scout both the Red and Blue Alliance.!", Toast.LENGTH_SHORT).show();
                     break;
+                }
+                //sets the button color to blue if they select the blue checkbox
+                if(bA.isChecked()){
+                    bLogin.setBackgroundColor(Color.parseColor("#2196F3"));
+                }else{
+                    bLogin.setBackgroundColor(Color.parseColor("#FFFFFF"));
                 }
                 isRedScouter = false;
                 bA.setActivated(true);

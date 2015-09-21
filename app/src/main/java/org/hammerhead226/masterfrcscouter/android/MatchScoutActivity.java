@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.adithyasairam.Utils.Annotations.Changeable;
 import com.adithyasairam.masterfrcscouter.Scouting.ScoutingData.DataParsing;
@@ -25,8 +26,6 @@ public class MatchScoutActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_match_scout);
         autonButton = (Button)(findViewById(R.id.autonButton));
         autonButton.setOnClickListener(this);
-        goHomeButton = (Button) (findViewById(R.id.goHomeButton));
-        goHomeButton.setOnClickListener(this);
         teamNumberET = (EditText)(findViewById(R.id.teamNumberET));
         matchNumberET = (EditText)(findViewById(R.id.matchNumberET));
     }
@@ -50,13 +49,16 @@ public class MatchScoutActivity extends AppCompatActivity implements View.OnClic
 
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.goHomeButton:
-                startActivity(new Intent(this, MainActivity.class));
-                break;
             case R.id.autonButton:
-                parseData();
-                startActivity(new Intent(this, AutonMatchScoutActivity.class));
-                break;
+                //ensures that the form fields are filled out or else the app crashes
+                if((!teamNumberET.getText().toString().equals(""))&& (!matchNumberET.getText().toString().equals(""))){
+                    parseData();
+                    startActivity(new Intent(this, AutonMatchScoutActivity.class));
+                    break;
+                }else{
+                    Toast.makeText(getApplicationContext(),"Please make sure both fields are filled out",Toast.LENGTH_SHORT).show();
+                    break;
+                }
         }
     }
 

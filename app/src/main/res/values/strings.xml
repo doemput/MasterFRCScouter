@@ -16,7 +16,7 @@
     <string name="TBA">The Blue Alliance</string>
     <string name="importData">Import Data</string>
     <string name="exportData">Export Data</string>
-    <string name="welcome">Welcome to the Master FRC Scouting App! Please select the action you want to complete:</string>
+    <string name="welcome">Select Action:</string>
     <string name="endBreak">End Break</string>
     <string name="title_activity_match_scout">Match Scout</string>
     <string name="title_activity_pit_scout">Pit Scout</string>
